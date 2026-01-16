@@ -1,0 +1,1491 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RedGate Academy - دليلك الشامل للأمن السيبراني والهاكينج الأخلاقي</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
+            color: #ffffff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* خلفية متحركة */
+        .animated-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            background: 
+                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
+                radial-gradient(circle at 40% 40%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
+            animation: bgShift 20s ease-in-out infinite;
+        }
+
+        @keyframes bgShift {
+            0%, 100% { transform: scale(1) rotate(0deg); }
+            50% { transform: scale(1.1) rotate(5deg); }
+        }
+
+        /* الهيدر */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            backdrop-filter: blur(15px);
+            z-index: 1000;
+            padding: 1rem 0;
+            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .brand {
+            font-size: 2.5rem;
+            font-weight: bold;
+            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            color: #ffffff;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            border-radius: 8px;
+            position: relative;
+        }
+
+        .nav-links a:hover {
+            color: #ff0000;
+            background: rgba(255, 0, 0, 0.1);
+            transform: translateY(-2px);
+        }
+
+        /* المحتوى الرئيسي */
+        main {
+            margin-top: 100px;
+            padding: 2rem;
+            max-width: 1400px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        /* Hero Section */
+        .hero {
+            text-align: center;
+            padding: 6rem 0;
+            position: relative;
+        }
+
+        .hero h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(45deg, #ff0000, #ffffff, #00ffff);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            animation: glow 3s ease-in-out infinite alternate;
+        }
+
+        @keyframes glow {
+            from { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5)); }
+            to { filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.8)); }
+        }
+
+        .hero p {
+            font-size: 1.4rem;
+            margin-bottom: 3rem;
+            opacity: 0.9;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+
+        .cta-buttons {
+            display: flex;
+            gap: 2rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 1.2rem 2.5rem;
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            text-decoration: none;
+            border-radius: 50px;
+            transition: all 0.3s ease;
+            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
+            font-weight: bold;
+            border: 2px solid transparent;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
+        }
+
+        .btn-secondary {
+            background: linear-gradient(45deg, #00ffff, #0099cc);
+            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.3);
+        }
+
+        .btn-secondary:hover {
+            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
+        }
+
+        /* الأقسام */
+        .section {
+            margin: 6rem 0;
+            padding: 3rem;
+            background: rgba(0, 0, 0, 0.4);
+            border-radius: 20px;
+            backdrop-filter: blur(15px);
+            border: 1px solid rgba(255, 0, 0, 0.2);
+            position: relative;
+        }
+
+        .section::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff0000, #00ffff, #ffff00, #ff0000);
+            border-radius: 20px;
+            z-index: -1;
+            opacity: 0.3;
+        }
+
+        .section h2 {
+            font-size: 3rem;
+            margin-bottom: 2rem;
+            text-align: center;
+            color: #ff0000;
+            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
+        }
+
+        .section h3 {
+            font-size: 2rem;
+            margin: 2rem 0 1rem 0;
+            color: #00ffff;
+            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
+            padding-bottom: 0.5rem;
+        }
+
+        .section p {
+            font-size: 1.1rem;
+            margin-bottom: 1.5rem;
+            opacity: 0.9;
+        }
+
+        /* الشبكات والكروت */
+        .cards-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .card {
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 40, 0.8));
+            padding: 2.5rem;
+            border-radius: 15px;
+            border: 2px solid rgba(255, 0, 0, 0.3);
+            transition: all 0.3s ease;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
+            transition: left 0.5s;
+        }
+
+        .card:hover::before {
+            left: 100%;
+        }
+
+        .card:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
+            border-color: #ff0000;
+        }
+
+        .card-icon {
+            font-size: 4rem;
+            margin-bottom: 1.5rem;
+            display: block;
+        }
+
+        .card h3 {
+            color: #ff0000;
+            margin-bottom: 1rem;
+            border: none;
+            text-align: center;
+        }
+
+        .card p {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* جداول الرواتب */
+        .salary-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 2rem 0;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+
+        .salary-table th,
+        .salary-table td {
+            padding: 1rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
+        }
+
+        .salary-table th {
+            background: linear-gradient(45deg, #ff0000, #cc0000);
+            color: white;
+            font-weight: bold;
+        }
+
+        .salary-table tr:hover {
+            background: rgba(255, 0, 0, 0.1);
+        }
+
+        /* قائمة المسارات */
+        .learning-path {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 2rem;
+            border-radius: 15px;
+            margin: 2rem 0;
+            border-left: 5px solid #ff0000;
+        }
+
+        .learning-path h4 {
+            color: #ff0000;
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .learning-path ul {
+            list-style: none;
+            padding-right: 1rem;
+        }
+
+        .learning-path li {
+            padding: 0.5rem 0;
+            position: relative;
+            padding-right: 2rem;
+        }
+
+        .learning-path li::before {
+            content: '🔹';
+            position: absolute;
+            right: 0;
+            color: #00ffff;
+        }
+
+        /* صور الهاكرز */
+        .hacker-profile {
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+            margin: 2rem 0;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            border: 1px solid rgba(255, 0, 0, 0.3);
+        }
+
+        .hacker-avatar {
+            width: 120px;
+            height: 120px;
+            border-radius: 50%;
+            background: linear-gradient(45deg, #ff0000, #00ffff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            flex-shrink: 0;
+        }
+
+        .hacker-info h4 {
+            color: #ff0000;
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .hacker-info p {
+            opacity: 0.8;
+            font-size: 1rem;
+        }
+
+        /* أدوات الهاكينج */
+        .tools-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .tool-item {
+            background: rgba(0, 0, 0, 0.6);
+            padding: 1.5rem;
+            border-radius: 10px;
+            border: 1px solid rgba(0, 255, 255, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .tool-item:hover {
+            transform: translateY(-5px);
+            border-color: #00ffff;
+            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
+        }
+
+        .tool-item h5 {
+            color: #00ffff;
+            margin-bottom: 0.5rem;
+            font-size: 1.2rem;
+        }
+
+        .tool-item p {
+            font-size: 0.9rem;
+            opacity: 0.8;
+        }
+
+        /* تحذيرات قانونية */
+        .warning-box {
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(255, 100, 0, 0.2));
+            border: 2px solid #ff0000;
+            border-radius: 15px;
+            padding: 2rem;
+            margin: 3rem 0;
+            text-align: center;
+        }
+
+        .warning-box h3 {
+            color: #ff0000;
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            border: none;
+        }
+
+        .warning-box p {
+            font-size: 1.1rem;
+            font-weight: bold;
+        }
+
+        /* إحصائيات */
+        .stats-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .stat-box {
+            text-align: center;
+            padding: 2rem;
+            background: rgba(0, 0, 0, 0.6);
+            border-radius: 15px;
+            border: 2px solid rgba(0, 255, 255, 0.3);
+        }
+
+        .stat-number {
+            font-size: 3rem;
+            font-weight: bold;
+            color: #00ffff;
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            font-size: 1rem;
+            opacity: 0.8;
+        }
+
+        /* الفوتر */
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 3rem 2rem;
+            text-align: center;
+            border-top: 2px solid rgba(255, 0, 0, 0.3);
+            margin-top: 6rem;
+        }
+
+        /* استجابة للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .nav {
+                flex-direction: column;
+                gap: 1rem;
+            }
+            
+            .nav-links {
+                flex-wrap: wrap;
+                justify-content: center;
+            }
+            
+            .hero h1 {
+                font-size: 2.5rem;
+            }
+            
+            .section {
+                padding: 2rem 1rem;
+            }
+            
+            .cards-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .hacker-profile {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .cta-buttons {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+
+        /* تأثيرات إضافية */
+        .highlight {
+            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(0, 255, 255, 0.2));
+            padding: 0.2rem 0.5rem;
+            border-radius: 5px;
+            font-weight: bold;
+        }
+
+        .code-snippet {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 1rem;
+            border-radius: 8px;
+            font-family: 'Courier New', monospace;
+            border-left: 4px solid #00ffff;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+            margin: 1rem 0;
+            overflow: hidden;
+        }
+
+        .progress {
+            height: 100%;
+            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00);
+            border-radius: 4px;
+            animation: progressMove 3s ease-in-out infinite;
+        }
+
+        @keyframes progressMove {
+            0% { width: 0%; }
+            50% { width: 100%; }
+            100% { width: 0%; }
+        }
+    </style>
+</head>
+<body>
+    <div class="animated-bg"></div>
+
+    <header>
+        <div class="nav">
+            <div class="brand">🔴 RedGate Academy</div>
+            <nav class="nav-links">
+                <a href="#intro">المقدمة</a>
+                <a href="#domains">المجالات</a>
+                <a href="#learning">مسارات التعلم</a>
+                <a href="#salaries">الرواتب</a>
+                <a href="#hackers">الهاكرز المشهورين</a>
+                <a href="#tools">الأدوات</a>
+                <a href="#tips">النصائح</a>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <section class="hero">
+            <h1>🔥 دليلك الشامل للأمن السيبراني</h1>
+            <p>اكتشف عالم الهاكينج الأخلاقي والأمن السيبراني من الصفر حتى الاحتراف. تعلم Red Teaming، اختبار الاختراق، والدفاع السيبراني مع أحدث الأدوات والتقنيات</p>
+            <div class="cta-buttons">
+                <a href="#intro" class="btn">🚀 ابدأ رحلتك الآن</a>
+                <a href="#learning" class="btn btn-secondary">📚 مسارات التعلم</a>
+            </div>
+        </section>
+
+        <section class="section" id="intro">
+            <h2>🔐 مقدمة عن الهاكينج والأمن السيبراني</h2>
+            
+            <h3>ما هو الهكر؟</h3>
+            <p>الهكر في الأصل يعني <span class="highlight">الشخص الذي يستخدم معرفته التقنية لحل المشاكل بطرق إبداعية</span>. في عالم الأمن السيبراني، الهاكر هو شخص يستطيع اكتشاف نقاط الضعف في الأنظمة والشبكات، سواء لحمايتها أو استغلالها.</p>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">⚪</span>
+                    <h3>الهاكر الأخلاقي (White Hat)</h3>
+                    <p>يستخدم مهاراته لحماية الأنظمة واكتشاف الثغرات لإصلاحها. يعمل مع الشركات والمؤسسات لتحسين أمانها السيبراني.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">⚫</span>
+                    <h3>الهاكر الضار (Black Hat)</h3>
+                    <p>يستغل الثغرات لأغراض شخصية أو إجرامية مثل سرقة البيانات، الابتزاز، أو إلحاق الضرر بالأنظمة.</p>
+                </div>
+                <div class="card">
+                    <span class="card-icon">🔘</span>
+                    <h3>الهاكر الرمادي (Gray Hat)</h3>
+                    <p>يقع بين الاثنين، قد يكتشف الثغرات دون إذن ولكن بنوايا حسنة، أو يطلب مقابل مالي لإصلاحها.</p>
+                </div>
+            </div>
+
+            <h3>لمحة تاريخية عن عالم الهكر</h3>
+            <div class="hacker-profile">
+                <div class="hacker-avatar">👨‍💻</div>
+                <div class="hacker-info">
+                    <h4>بداية الهكر (1960s)</h4>
+                    <p>بدأ مصطلح "الهكر" في معهد MIT مع طلاب الحاسوب الذين كانوا يحبون استكشاف الأنظمة وتطويرها. كان المصطلح إيجابياً ويعني الإبداع والابتكار.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">📞</div>
+                <div class="hacker-info">
+                    <h4>عصر Phone Phreaking (1970s)</h4>
+                    <p>ظهر هاكرز الهاتف مثل John Draper (Captain Crunch) الذي اكتشف كيفية خداع أنظمة الهاتف باستخدام صافرة من علبة حبوب الإفطار.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">💻</div>
+                <div class="hacker-info">
+                    <h4>عصر الحاسوب الشخصي (1980s-1990s)</h4>
+                    <p>انتشار الحواسيب الشخصية والإنترنت أدى لظهور مجموعات هاكرز مثل Chaos Computer Club و Legion of Doom، وبدأت الحكومات تأخذ الأمر بجدية.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="domains">
+            <h2>💼 أهم مجالات الأمن السيبراني</h2>
+
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🔴</span>
+                    <h3>Red Team - الفريق الأحمر</h3>
+                    <p>محاكاة الهجمات الحقيقية لاختبار دفاعات المؤسسة. يشمل اختبار الاختراق، الهندسة الاجتماعية، واختراق الأنظمة الفيزيائية.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 90%;"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔵</span>
+                    <h3>Blue Team - الفريق الأزرق</h3>
+                    <p>الدفاع والمراقبة والاستجابة للحوادث. يشمل تحليل السجلات، مراقبة الشبكة، والتحقيق في الحوادث الأمنية.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 85%;"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🟣</span>
+                    <h3>Purple Team - الفريق البنفسجي</h3>
+                    <p>التعاون بين Red و Blue Teams لتحسين الدفاعات. يركز على تبادل المعرفة وتطوير استراتيجيات الأمان.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 75%;"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔍</span>
+                    <h3>Digital Forensics - الطب الشرعي الرقمي</h3>
+                    <p>تحليل الأدلة الرقمية والتحقيق في الجرائم السيبرانية. يشمل استرداد البيانات المحذوفة وتتبع المجرمين.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 70%;"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🌐</span>
+                    <h3>Network Security - أمان الشبكات</h3>
+                    <p>حماية الشبكات من التسلل والهجمات. يشمل إعداد جدران الحماية، أنظمة كشف التسلل، والتشفير.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 80%;"></div>
+                    </div>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🦠</span>
+                    <h3>Malware Analysis - تحليل البرمجيات الخبيثة</h3>
+                    <p>دراسة وتحليل الفيروسات وأحصنة طروادة لفهم طريقة عملها وتطوير الحماية ضدها.</p>
+                    <div class="progress-bar">
+                        <div class="progress" style="width: 65%;"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="stats-container">
+                <div class="stat-box">
+                    <span class="stat-number">4.2M</span>
+                    <span class="stat-label">وظائف أمن سيبراني شاغرة عالمياً</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">$6T</span>
+                    <span class="stat-label">خسائر الجرائم السيبرانية سنوياً</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">43%</span>
+                    <span class="stat-label">من الهجمات تستهدف الشركات الصغيرة</span>
+                </div>
+                <div class="stat-box">
+                    <span class="stat-number">200</span>
+                    <span class="stat-label">يوم متوسط اكتشاف الاختراق</span>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="learning">
+            <h2>📚 مسارات تعلم الأمن السيبراني</h2>
+
+            <div class="learning-path">
+                <h4>🟢 المستوى المبتدئ (0-6 أشهر)</h4>
+                <ul>
+                    <li>أساسيات الشبكات (TCP/IP, OSI Model, DNS, DHCP)</li>
+                    <li>نظام التشغيل Linux (Command Line, File System, Permissions)</li>
+                    <li>البرمجة الأساسية (Python, Bash Scripting)</li>
+                    <li>مفاهيم الأمان الأساسية (CIA Triad, Authentication, Authorization)</li>
+                    <li>أدوات أساسية (Nmap, Wireshark, Metasploit)</li>
+                    <li>Virtual Machines و Lab Setup</li>
+                </ul>
+            </div>
+
+            <div class="learning-path">
+                <h4>🟡 المستوى المتوسط (6-18 شهر)</h4>
+                <ul>
+                    <li>OWASP Top 10 وثغرات تطبيقات الويب</li>
+                    <li>اختبار اختراق تطبيقات الويب (SQL Injection, XSS, CSRF)</li>
+                    <li>أدوات متقدمة (Burp Suite, OWASP ZAP, Nikto)</li>
+                    <li>اختبار اختراق الشبكات (Network Scanning, Exploitation)</li>
+                    <li>Windows Security و Active Directory</li>
+                    <li>Cryptography والتشفير</li>
+                    <li>Social Engineering والهندسة الاجتماعية</li>
+                </ul>
+            </div>
+
+            <div class="learning-path">
+                <h4>🔴 المستوى المتقدم (18+ شهر)</h4>
+                <ul>
+                    <li>Red Team Operations وتقنيات التخفي</li>
+                    <li>Advanced Persistent Threats (APT)</li>
+                    <li>Evasion Techniques والتهرب من الأنظمة الأمنية</li>
+                    <li>Custom Exploit Development</li>
+                    <li>Mobile Security (Android/iOS)</li>
+                    <li>Cloud Security (AWS, Azure, GCP)</li>
+                    <li>Incident Response والاستجابة للحوادث</li>
+                    <li>Threat Intelligence وتحليل التهديدات</li>
+                </ul>
+            </div>
+
+            <h3>🏆 الشهادات المعترف بها عالمياً</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🎯</span>
+                    <h3>CEH - Certified Ethical Hacker</h3>
+                    <p><strong>المستوى:</strong> مبتدئ إلى متوسط<br>
+                    <strong>التكلفة:</strong> $1,199<br>
+                    <strong>مدة الصلاحية:</strong> 3 سنوات<br>
+                    شهادة أساسية تغطي أساسيات الهاكينج الأخلاقي</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">💀</span>
+                    <h3>OSCP - Offensive Security Certified Professional</h3>
+                    <p><strong>المستوى:</strong> متوسط إلى متقدم<br>
+                    <strong>التكلفة:</strong> $1,499<br>
+                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
+                    الشهادة الأكثر احتراماً في مجال اختبار الاختراق</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🛡️</span>
+                    <h3>PNPT - Practical Network Penetration Tester</h3>
+                    <p><strong>المستوى:</strong> متوسط<br>
+                    <strong>التكلفة:</strong> $399<br>
+                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
+                    شهادة عملية تركز على اختبار اختراق الشبكات</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔰</span>
+                    <h3>eJPT - eLearnSecurity Junior Penetration Tester</h3>
+                    <p><strong>المستوى:</strong> مبتدئ<br>
+                    <strong>التكلفة:</strong> $200<br>
+                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
+                    نقطة بداية ممتازة للمبتدئين</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🏅</span>
+                    <h3>CISSP - Certified Information Systems Security Professional</h3>
+                    <p><strong>المستوى:</strong> إداري/متقدم<br>
+                    <strong>التكلفة:</strong> $749<br>
+                    <strong>مدة الصلاحية:</strong> 3 سنوات<br>
+                    للمناصب الإدارية والاستشارية</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔥</span>
+                    <h3>CRTO - Certified Red Team Operator</h3>
+                    <p><strong>المستوى:</strong> متقدم<br>
+                    <strong>التكلفة:</strong> $499<br>
+                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
+                    متخصصة في عمليات Red Team</p>
+                </div>
+            </div>
+
+            <h3>📖 مصادر التعلم الموصى بها</h3>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>🌐 مواقع التعلم</h5>
+                    <p>TryHackMe, HackTheBox, VulnHub, OverTheWire, PentesterLab</p>
+                </div>
+                <div class="tool-item">
+                    <h5>📚 كتب مهمة</h5>
+                    <p>The Web Application Hacker's Handbook, Metasploit: The Penetration Tester's Guide</p>
+                </div>
+                <div class="tool-item">
+                    <h5>🎥 قنوات يوتيوب</h5>
+                    <p>IppSec, LiveOverflow, John Hammond, The Cyber Mentor</p>
+                </div>
+                <div class="tool-item">
+                    <h5>🏠 Home Labs</h5>
+                    <p>VirtualBox/VMware, Kali Linux, Metasploitable, DVWA</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="salaries">
+            <h2>💸 الرواتب وفرص العمل في الأمن السيبراني</h2>
+
+            <h3>💰 متوسط الرواتب حسب المنطقة (بالدولار الأمريكي سنوياً)</h3>
+            <table class="salary-table">
+                <thead>
+                    <tr>
+                        <th>المنصب</th>
+                        <th>الدول العربية</th>
+                        <th>أوروبا</th>
+                        <th>أمريكا الشمالية</th>
+                        <th>آسيا</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>Junior Penetration Tester</td>
+                        <td>$15,000 - $30,000</td>
+                        <td>$40,000 - $60,000</td>
+                        <td>$65,000 - $85,000</td>
+                        <td>$20,000 - $40,000</td>
+                    </tr>
+                    <tr>
+                        <td>Senior Penetration Tester</td>
+                        <td>$30,000 - $60,000</td>
+                        <td>$70,000 - $100,000</td>
+                        <td>$100,000 - $140,000</td>
+                        <td>$40,000 - $80,000</td>
+                    </tr>
+                    <tr>
+                        <td>Red Team Specialist</td>
+                        <td>$40,000 - $80,000</td>
+                        <td>$80,000 - $120,000</td>
+                        <td>$120,000 - $180,000</td>
+                        <td>$50,000 - $100,000</td>
+                    </tr>
+                    <tr>
+                        <td>Security Consultant</td>
+                        <td>$35,000 - $70,000</td>
+                        <td>$75,000 - $110,000</td>
+                        <td>$110,000 - $160,000</td>
+                        <td>$45,000 - $90,000</td>
+                    </tr>
+                    <tr>
+                        <td>CISO</td>
+                        <td>$80,000 - $150,000</td>
+                        <td>$150,000 - $250,000</td>
+                        <td>$250,000 - $400,000</td>
+                        <td>$100,000 - $200,000</td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <h3>🎯 مقارنة أنواع العمل</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🏢</span>
+                    <h3>العمل الوظيفي</h3>
+                    <p><strong>المزايا:</strong> راتب ثابت، تأمين صحي، إجازات مدفوعة<br>
+                    <strong>العيوب:</strong> مرونة أقل، نمو محدود<br>
+                    <strong>متوسط الراتب:</strong> $60,000 - $150,000</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">💼</span>
+                    <h3>العمل الحر (Freelance)</h3>
+                    <p><strong>المزايا:</strong> مرونة عالية، إمكانية دخل أعلى<br>
+                    <strong>العيوب:</strong> عدم استقرار، لا توجد مزايا<br>
+                    <strong>متوسط الأجر:</strong> $100 - $500 في الساعة</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🐛</span>
+                    <h3>Bug Bounty</h3>
+                    <p><strong>المزايا:</strong> دخل غير محدود، تعلم مستمر<br>
+                    <strong>العيوب:</strong> دخل غير مضمون، منافسة شديدة<br>
+                    <strong>متوسط المكافآت:</strong> $100 - $50,000+ لكل ثغرة</p>
+                </div>
+            </div>
+
+            <h3>📈 المسار الوظيفي</h3>
+            <div class="learning-path">
+                <h4>🎯 من المبتدئ إلى الخبير</h4>
+                <ul>
+                    <li><strong>Junior Security Analyst (0-2 سنة):</strong> $40,000 - $60,000</li>
+                    <li><strong>Security Analyst (2-4 سنوات):</strong> $60,000 - $80,000</li>
+                    <li><strong>Senior Security Analyst (4-7 سنوات):</strong> $80,000 - $110,000</li>
+                    <li><strong>Security Architect (7-10 سنوات):</strong> $110,000 - $150,000</li>
+                    <li><strong>Security Manager (8-12 سنة):</strong> $120,000 - $180,000</li>
+                    <li><strong>CISO (10+ سنوات):</strong> $180,000 - $400,000+</li>
+                </ul>
+            </div>
+        </section>
+
+        <section class="section" id="hackers">
+            <h2>🧠 أشهر الهاكرز والشخصيات المؤثرة</h2>
+
+            <h3>🎩 الهاكرز الأخلاقيين المشهورين</h3>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">👨‍💼</div>
+                <div class="hacker-info">
+                    <h4>Kevin Mitnick (1963-2023) - "The World's Most Famous Hacker"</h4>
+                    <p>أشهر هاكر في التاريخ، قضى 5 سنوات في السجن بتهمة اختراق أنظمة الحاسوب. بعد إطلاق سراحه أصبح خبير أمن سيبراني ومؤلف كتب مشهورة مثل "The Art of Deception". أسس شركة Mitnick Security Consulting وأصبح من أهم المتحدثين في مجال الأمن السيبراني.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🛡️</div>
+                <div class="hacker-info">
+                    <h4>Marcus Hutchins - "MalwareTech"</h4>
+                    <p>الهاكر البريطاني الذي أوقف انتشار فيروس WannaCry عام 2017 عن طريق اكتشاف "kill switch" في الكود. كان عمره 23 سنة فقط عندما أنقذ العالم من واحدة من أكبر الهجمات السيبرانية في التاريخ. يعمل الآن كباحث أمن سيبراني.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🔍</div>
+                <div class="hacker-info">
+                    <h4>Tsutomu Shimomura</h4>
+                    <p>خبير الأمن السيبراني الياباني-الأمريكي الذي ساعد في القبض على Kevin Mitnick. متخصص في أمان الشبكات والطب الشرعي الرقمي. قصته مع Mitnick تم تحويلها إلى فيلم "Takedown".</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🎯</div>
+                <div class="hacker-info">
+                    <h4>Charlie Miller</h4>
+                    <p>أول شخص يخترق iPhone وأول من اخترق MacBook Air. فاز بمسابقة Pwn2Own عدة مرات. يعمل حالياً في مجال أمان السيارات الذكية وقد اكتشف ثغرات خطيرة في سيارات Jeep Cherokee.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🌟</div>
+                <div class="hacker-info">
+                    <h4>Katie Moussouris</h4>
+                    <p>رائدة في مجال Bug Bounty Programs، عملت في Microsoft وأسست أول برنامج bug bounty في الشركة. أسست شركة Luta Security وتعتبر من أهم الشخصيات في مجال الأمن السيبراني.</p>
+                </div>
+            </div>
+
+            <h3>🎭 مجموعات الهاكتفست المشهورة</h3>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🎭</div>
+                <div class="hacker-info">
+                    <h4>Anonymous - "We Are Legion"</h4>
+                    <p>مجموعة هاكتفست لامركزية تأسست عام 2003. مشهورة بهجماتها على الحكومات والشركات الكبرى. استهدفت الكنيسة العلمية، PayPal، وحكومات عدة دول. شعارها قناع Guy Fawkes.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🐜</div>
+                <div class="hacker-info">
+                    <h4>LulzSec - "Laughing at your security since 2011"</h4>
+                    <p>مجموعة انشقت عن Anonymous، نشطت لمدة 50 يوم فقط في 2011 لكنها نفذت هجمات مدوية على Sony، PBS، CIA، وFBI. تم القبض على معظم أعضائها.</p>
+                </div>
+            </div>
+
+            <div class="hacker-profile">
+                <div class="hacker-avatar">🐻</div>
+                <div class="hacker-info">
+                    <h4>APT Groups (Advanced Persistent Threats)</h4>
+                    <p>مجموعات هاكرز مدعومة من دول مثل APT1 (الصين)، Lazarus Group (كوريا الشمالية)، Fancy Bear (روسيا). تنفذ هجمات معقدة ومستمرة لسرقة أسرار الدول والشركات.</p>
+                </div>
+            </div>
+
+            <h3>🏆 تأثيرهم على مجال الأمن السيبراني</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">📚</span>
+                    <h3>التعليم والتوعية</h3>
+                    <p>كتب مثل "The Art of Deception" و "Ghost in the Wires" علمت الملايين عن الأمن السيبراني والهندسة الاجتماعية.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🛡️</span>
+                    <h3>تطوير الدفاعات</h3>
+                    <p>هجماتهم كشفت نقاط ضعف مهمة، مما أدى لتطوير أنظمة حماية أقوى وممارسات أمنية أفضل.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">⚖️</span>
+                    <h3>القوانين والتشريعات</h3>
+                    <p>أدت أنشطتهم لسن قوانين جديدة مثل Computer Fraud and Abuse Act وتطوير قوانين الجرائم السيبرانية.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">💼</span>
+                    <h3>صناعة الأمن السيبراني</h3>
+                    <p>ساهموا في نمو صناعة الأمن السيبراني التي تقدر بمئات المليارات من الدولارات سنوياً.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="tools">
+            <h2>🧰 أدوات لا غنى عنها للهاكرز</h2>
+
+            <h3>🔍 أدوات الاستطلاع والتجسس</h3>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>Nmap - Network Mapper</h5>
+                    <p>أداة مسح الشبكات الأشهر في العالم. تكتشف الأجهزة المتصلة، المنافذ المفتوحة، وأنظمة التشغيل.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Masscan</h5>
+                    <p>أسرع أداة مسح منافذ في العالم، قادرة على مسح الإنترنت كاملاً في 6 دقائق.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Shodan</h5>
+                    <p>"محرك البحث للأجهزة المتصلة بالإنترنت" - يكشف الكاميرات، الراوترات، والأجهزة الذكية.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>theHarvester</h5>
+                    <p>جمع معلومات من محركات البحث، LinkedIn، والمصادر المفتوحة (OSINT).</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Maltego</h5>
+                    <p>أداة تحليل الروابط والعلاقات، ممتازة للتحقيقات والاستخبارات مفتوحة المصدر.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Recon-ng</h5>
+                    <p>إطار عمل شامل لجمع المعلومات مع وحدات متعددة للاستطلاع.</p>
+                </div>
+            </div>
+
+            <h3>⚔️ أدوات الاستغلال (Exploitation)</h3>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>Metasploit Framework</h5>
+                    <p>أشهر أداة استغلال في العالم، تحتوي على آلاف الـ exploits والـ payloads.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Burp Suite</h5>
+                    <p>الأداة الأساسية لاختبار أمان تطبيقات الويب، تشمل proxy، scanner، وintruder.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>SQLmap</h5>
+                    <p>أداة آلية لاكتشاف واستغلال ثغرات SQL Injection في قواعد البيانات.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Cobalt Strike</h5>
+                    <p>أداة Red Team متقدمة للمحاكاة الهجومية وإدارة العمليات طويلة المدى.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Empire/PowerShell Empire</h5>
+                    <p>إطار عمل post-exploitation يستخدم PowerShell و Python للتحكم في الأنظمة.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>BeEF - Browser Exploitation Framework</h5>
+                    <p>استغلال متصفحات الويب والتحكم بها عن بُعد.</p>
+                </div>
+            </div>
+
+            <h3>🕵️ أدوات ما بعد الاختراق</h3>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>Mimikatz</h5>
+                    <p>استخراج كلمات المرور من ذاكرة Windows، تعتبر من أخطر الأدوات.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>BloodHound</h5>
+                    <p>تحليل وتصور Active Directory لإيجاد مسارات التصعيد والهجوم.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>PowerView</h5>
+                    <p>استطلاع Active Directory باستخدام PowerShell.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>LinEnum / LinPEAS</h5>
+                    <p>أدوات تصعيد الصلاحيات في أنظمة Linux.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>WinPEAS</h5>
+                    <p>تصعيد الصلاحيات في أنظمة Windows.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Impacket</h5>
+                    <p>مجموعة أدوات Python للتعامل مع بروتوكولات الشبكة.</p>
+                </div>
+            </div>
+
+            <h3>📡 أدوات إدارة الاتصال (C2 - Command & Control)</h3>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>Cobalt Strike</h5>
+                    <p>الأداة الأكثر شهرة في عمليات Red Team، توفر C2 متقدم وتقنيات تخفي.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Sliver</h5>
+                    <p>إطار عمل C2 مفتوح المصدر، بديل مجاني لـ Cobalt Strike.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Empire</h5>
+                    <p>C2 framework يستخدم PowerShell و Python.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Covenant</h5>
+                    <p>إطار عمل C2 يستخدم .NET، مناسب لبيئات Windows.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Mythic</h5>
+                    <p>منصة C2 حديثة مع واجهة ويب متقدمة.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>PoshC2</h5>
+                    <p>إطار عمل C2 يستخدم PowerShell مع تقنيات تخفي متقدمة.</p>
+                </div>
+            </div>
+
+            <div class="code-snippet">
+                <strong>مثال على استخدام Nmap:</strong><br>
+                # مسح أساسي للشبكة<br>
+                nmap -sn 192.168.1.0/24<br><br>
+                # مسح المنافذ مع كشف نظام التشغيل<br>
+                nmap -sS -O -sV target.com<br><br>
+                # مسح شامل مع السكريبتات<br>
+                nmap -sC -sV -A target.com
+            </div>
+        </section>
+
+        <section class="section" id="redteam">
+            <h2>🕵️‍♂️ ممارسات Red Team المتقدمة</h2>
+
+            <h3>🎯 تقنيات المحاكاة المتقدمة</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">🎭</span>
+                    <h3>Living off the Land</h3>
+                    <p>استخدام الأدوات الموجودة في النظام (مثل PowerShell، WMI، PsExec) بدلاً من رفع أدوات خارجية لتجنب الكشف.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">👻</span>
+                    <h3>Fileless Attacks</h3>
+                    <p>هجمات لا تترك ملفات على القرص الصلب، تعمل في الذاكرة فقط مما يجعل كشفها صعب جداً.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔄</span>
+                    <h3>Lateral Movement</h3>
+                    <p>الانتقال من جهاز لآخر داخل الشبكة باستخدام تقنيات مثل Pass-the-Hash، Golden Ticket، وSilver Ticket.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">⏰</span>
+                    <h3>Persistence Techniques</h3>
+                    <p>ضمان البقاء في النظام حتى بعد إعادة التشغيل باستخدام Registry، Scheduled Tasks، وServices.</p>
+                </div>
+            </div>
+
+            <h3>🧠 الهندسة الاجتماعية</h3>
+            <div class="learning-path">
+                <h4>📞 تقنيات الهندسة الاجتماعية</h4>
+                <ul>
+                    <li><strong>Phishing:</strong> إرسال رسائل مزيفة لسرقة بيانات الاعتماد</li>
+                    <li><strong>Spear Phishing:</strong> هجمات موجهة لأشخاص محددين</li>
+                    <li><strong>Vishing:</strong> الهندسة الاجتماعية عبر الهاتف</li>
+                    <li><strong>Smishing:</strong> الهندسة الاجتماعية عبر الرسائل النصية</li>
+                    <li><strong>Pretexting:</strong> خلق سيناريو مزيف لكسب الثقة</li>
+                    <li><strong>Baiting:</strong> ترك أجهزة USB مصابة في أماكن عامة</li>
+                </ul>
+            </div>
+
+            <h3>🏢 اختراق الأنظمة الفيزيائية</h3>
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>Lock Picking</h5>
+                    <p>فتح الأقفال الميكانيكية باستخدام أدوات خاصة.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>RFID Cloning</h5>
+                    <p>نسخ بطاقات الدخول الإلكترونية.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Badge Cloning</h5>
+                    <p>تقليد بطاقات الهوية للدخول للمباني.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Tailgating</h5>
+                    <p>الدخول خلف شخص مخول دون إذن.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>Dumpster Diving</h5>
+                    <p>البحث في القمامة عن معلومات حساسة.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>USB Drops</h5>
+                    <p>ترك أجهزة USB مصابة في مواقف السيارات أو المكاتب.</p>
+                </div>
+            </div>
+        </section>
+
+        <section class="section" id="tips">
+            <h2>💡 نصائح مهمة للمبتدئين</h2>
+
+            <div class="warning-box">
+                <h3>⚠️ تحذير قانوني مهم</h3>
+                <p>جميع المعلومات في هذا الموقع لأغراض تعليمية فقط. لا تستخدم هذه المعلومات في أي نشاط غير قانوني. اختبر فقط على أنظمتك الخاصة أو بإذن صريح من المالك.</p>
+            </div>
+
+            <h3>⚖️ الحدود القانونية</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">✅</span>
+                    <h3>ما هو قانوني</h3>
+                    <p>• اختبار أنظمتك الخاصة<br>
+                    • المشاركة في CTF competitions<br>
+                    • استخدام Labs مثل TryHackMe<br>
+                    • Bug Bounty Programs المعتمدة<br>
+                    • التعلم النظري والأكاديمي</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">❌</span>
+                    <h3>ما هو غير قانوني</h3>
+                    <p>• اختراق أنظمة بدون إذن<br>
+                    • سرقة البيانات الشخصية<br>
+                    • إلحاق الضرر بالأنظمة<br>
+                    • الابتزاز والتهديد<br>
+                    • بيع الأدوات الضارة</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">⚠️</span>
+                    <h3>المنطقة الرمادية</h3>
+                    <p>• اختبار مواقع بدون إذن صريح<br>
+                    • مشاركة الثغرات علناً<br>
+                    • استخدام أدوات الهاكينج<br>
+                    • الوصول لبيانات غير مخصصة لك</p>
+                </div>
+            </div>
+
+            <h3>🏠 بناء بيئة تجريبية آمنة (Home Lab)</h3>
+            <div class="learning-path">
+                <h4>🖥️ متطلبات الأجهزة</h4>
+                <ul>
+                    <li><strong>الحد الأدنى:</strong> 8GB RAM، معالج رباعي النواة، 500GB تخزين</li>
+                    <li><strong>الموصى به:</strong> 16GB+ RAM، معالج 8 أنوية، 1TB+ SSD</li>
+                    <li><strong>للمحترفين:</strong> 32GB+ RAM، خادم مخصص، شبكة منفصلة</li>
+                </ul>
+            </div>
+
+            <div class="tools-grid">
+                <div class="tool-item">
+                    <h5>🐧 Kali Linux</h5>
+                    <p>نظام التشغيل الأساسي للهاكرز الأخلاقيين، يحتوي على مئات الأدوات.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>📦 VirtualBox/VMware</h5>
+                    <p>لتشغيل أنظمة تشغيل متعددة على جهاز واحد.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>🎯 Metasploitable</h5>
+                    <p>نظام Linux مليء بالثغرات للتدريب.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>🌐 DVWA</h5>
+                    <p>تطبيق ويب مليء بالثغرات للتدريب.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>🏢 VulnHub VMs</h5>
+                    <p>مجموعة كبيرة من الأنظمة الضعيفة للتدريب.</p>
+                </div>
+                <div class="tool-item">
+                    <h5>☁️ Cloud Labs</h5>
+                    <p>استخدام AWS، Azure، أو GCP لبناء labs في السحابة.</p>
+                </div>
+            </div>
+
+            <h3>🚨 التحذير من النصابين</h3>
+            <div class="warning-box">
+                <h3>🛑 علامات الكورسات والمدربين المزيفين</h3>
+                <p>• وعود بـ "تعلم الهاكينج في 7 أيام"<br>
+                • ادعاء تعليم "الهاكينج الأسود"<br>
+                • طلب مبالغ كبيرة مقدماً<br>
+                • عدم وجود مراجعات حقيقية<br>
+                • الوعد بوظائف مضمونة<br>
+                • تعليم أنشطة غير قانونية</p>
+            </div>
+
+            <h3>📋 نصائح عملية للمبتدئين</h3>
+            <div class="cards-grid">
+                <div class="card">
+                    <span class="card-icon">📚</span>
+                    <h3>ابدأ بالأساسيات</h3>
+                    <p>لا تقفز للأدوات المتقدمة. تعلم الشبكات، Linux، والبرمجة أولاً. الأساسيات القوية تجعل التعلم المتقدم أسهل.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🎯</span>
+                    <h3>التطبيق العملي</h3>
+                    <p>لا تكتفي بالقراءة. جرب كل شيء في بيئة آمنة. اشترك في TryHackMe أو HackTheBox وحل التحديات.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">👥</span>
+                    <h3>انضم للمجتمع</h3>
+                    <p>تفاعل مع مجتمعات الأمن السيبراني على Discord، Reddit، وTwitter. تعلم من خبرات الآخرين.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">📝</span>
+                    <h3>وثق رحلتك</h3>
+                    <p>اكتب عن ما تتعلمه في مدونة أو LinkedIn. هذا يساعدك على التذكر ويبني سمعتك المهنية.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">🔄</span>
+                    <h3>التعلم المستمر</h3>
+                    <p>مجال الأمن السيبراني يتطور بسرعة. اقرأ الأخبار الأمنية يومياً وتابع الباحثين المشهورين.</p>
+                </div>
+
+                <div class="card">
+                    <span class="card-icon">⚖️</span>
+                    <h3>الأخلاق أولاً</h3>
+                    <p>استخدم مهاراتك لحماية الناس، ليس لإيذائهم. الهاكر الأخلاقي محترم ومطلوب في السوق.</p>
+                </div>
+            </div>
+
+            <div class="code-snippet">
+                <strong>خطة تعلم 30 يوم للمبتدئين:</strong><br>
+                الأسبوع 1: أساسيات الشبكات + Linux basics<br>
+                الأسبوع 2: Python programming + Bash scripting<br>
+                الأسبوع 3: Nmap + Wireshark + أساسيات الثغرات<br>
+                الأسبوع 4: TryHackMe rooms + أول CTF<br><br>
+                <strong>الهدف:</strong> فهم الأساسيات وحل 10 تحديات على الأقل
+            </div>
+        </section>
+
+        <div class="warning-box">
+            <h3>📜 إخلاء مسؤولية</h3>
+            <p>هذا المحتوى مخصص للأغراض التعليمية والبحثية فقط. نحن لا نتحمل أي مسؤولية عن سوء استخدام هذه المعلومات. يجب على المستخدمين الالتزام بالقوانين المحلية والدولية والحصول على إذن صريح قبل اختبار أي نظام لا يملكونه.</p>
+        </div>
+    </main>
+
+    <footer>
+        <p>&copy; 2024 RedGate Academy. جميع الحقوق محفوظة. | تم إنشاؤه لأغراض تعليمية فقط</p>
+        <p>🔴 تذكر: الهاكينج الأخلاقي يحمي، الهاكينج الضار يدمر. اختر الطريق الصحيح.</p>
+    </footer>
+
+    <script>
+        // تأثير التمرير السلس
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function (e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                }
+            });
+        });
+
+        // تأثير الظهور عند التمرير
+        const observerOptions = {
+            threshold: 0.1,
+            rootMargin: '0px 0px -50px 0px'
+        };
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    entry.target.style.opacity = '1';
+                    entry.target.style.transform = 'translateY(0)';
+                }
+            });
+        }, observerOptions);
+
+        // تطبيق التأثير على جميع الكروت والأقسام
+        document.querySelectorAll('.card, .section, .hacker-profile').forEach(el => {
+            el.style.opacity = '0';
+            el.style.transform = 'translateY(30px)';
+            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+            observer.observe(el);
+        });
+
+        // تأثير الكتابة للعناوين
+        function typeWriter(element, text, speed = 100) {
+            let i = 0;
+            element.innerHTML = '';
+            function type() {
+                if (i < text.length) {
+                    element.innerHTML += text.charAt(i);
+                    i++;
+                    setTimeout(type, speed);
+                }
+            }
+            type();
+        }
+
+        // تطبيق تأثير الكتابة على العنوان الرئيسي
+        window.addEventListener('load', () => {
+            const heroTitle = document.querySelector('.hero h1');
+            const originalText = heroTitle.textContent;
+            typeWriter(heroTitle, originalText, 150);
+        });
+
+        // إضافة تأثيرات تفاعلية للكروت
+        document.querySelectorAll('.card').forEach(card => {
+            card.addEventListener('mouseenter', function() {
+                this.style.transform = 'translateY(-15px) scale(1.03)';
+            });
+            
+            card.addEventListener('mouseleave', function() {
+                this.style.transform = 'translateY(-10px) scale(1.02)';
+            });
+        });
+
+        // تحديث شريط التقدم
+        function updateProgressBars() {
+            document.querySelectorAll('.progress').forEach(bar => {
+                const width = Math.random() * 100;
+                bar.style.width = width + '%';
+            });
+        }
+
+        // تحديث أشرطة التقدم كل 5 ثوان
+        setInterval(updateProgressBars, 5000);
+
+        // fact إضافة تأثير الجسيمات المتحركة
+        function createParticle() {
+            const particle = document.createElement('div');
+            particle.style.position = 'fixed';
+            particle.style.width = '4px';
+            particle.style.height = '4px';
+            particle.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.7)`;
+            particle.style.borderRadius = '50%';
+            particle.style.pointerEvents = 'none';
+            particle.style.zIndex = '1';
+            particle.style.left = Math.random() * window.innerWidth + 'px';
+            particle.style.top = window.innerHeight + 'px';
+            
+            document.body.appendChild(particle);
+            
+            const animation = particle.animate([
+                { transform: 'translateY(0px)', opacity: 1 },
+                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
+            ], {
+                duration: Math.random() * 3000 + 2000,
+                easing: 'linear'
+            });
+            
+            animation.onfinish = () => particle.remove();
+        }
+
+        // إنشاء جسيمات كل ثانية
+        setInterval(createParticle, 1000);
+
+        // تأثير تتبع الماوس
+        document.addEventListener('mousemove', (e) => {
+            const trail = document.createElement('div');
+            trail.style.position = 'fixed';
+            trail.style.left = e.clientX - 5 + 'px';
+            trail.style.top = e.clientY - 5 + 'px';
+            trail.style.width = '10px';
+            trail.style.height = '10px';
+            trail.style.background = 'rgba(255, 0, 0, 0.5)';
+            trail.style.borderRadius = '50%';
+            trail.style.pointerEvents = 'none';
+            trail.style.zIndex = '999';
+            trail.style.animation = 'fadeOut 1s ease-out forwards';
+            
+            document.body.appendChild(trail);
+            
+            setTimeout(() => trail.remove(), 1000);
+        });
+
+        // إضافة CSS للرسوم المتحركة
+        const style = document.createElement('style');
+        style.textContent = `
+            @keyframes fadeOut {
+                to {
+                    opacity: 0;
+                    transform: scale(2);
+                }
+            }
+        `;
+        document.head.appendChild(style);
+    </script>
+<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ba3929e43e2770',t:'MTc1NzI5MDIzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+</html>
