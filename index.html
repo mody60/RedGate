@@ -1,1491 +1,1330 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>RedGate Academy - دليلك الشامل للأمن السيبراني والهاكينج الأخلاقي</title>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #0a0a0a 0%, #1a1a2e 50%, #16213e 100%);
-            color: #ffffff;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* خلفية متحركة */
-        .animated-bg {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            background: 
-                radial-gradient(circle at 20% 80%, rgba(255, 0, 0, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 80% 20%, rgba(0, 255, 255, 0.1) 0%, transparent 50%),
-                radial-gradient(circle at 40% 40%, rgba(255, 255, 0, 0.05) 0%, transparent 50%);
-            animation: bgShift 20s ease-in-out infinite;
-        }
-
-        @keyframes bgShift {
-            0%, 100% { transform: scale(1) rotate(0deg); }
-            50% { transform: scale(1.1) rotate(5deg); }
-        }
-
-        /* الهيدر */
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            backdrop-filter: blur(15px);
-            z-index: 1000;
-            padding: 1rem 0;
-            border-bottom: 2px solid rgba(255, 0, 0, 0.3);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1400px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .brand {
-            font-size: 2.5rem;
-            font-weight: bold;
-            background: linear-gradient(45deg, #ff0000, #ff6600, #ffff00);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255, 0, 0, 0.5);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 2rem;
-        }
-
-        .nav-links a {
-            color: #ffffff;
-            text-decoration: none;
-            transition: all 0.3s ease;
-            padding: 0.5rem 1rem;
-            border-radius: 8px;
-            position: relative;
-        }
-
-        .nav-links a:hover {
-            color: #ff0000;
-            background: rgba(255, 0, 0, 0.1);
-            transform: translateY(-2px);
-        }
-
-        /* المحتوى الرئيسي */
-        main {
-            margin-top: 100px;
-            padding: 2rem;
-            max-width: 1400px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        /* Hero Section */
-        .hero {
-            text-align: center;
-            padding: 6rem 0;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(45deg, #ff0000, #ffffff, #00ffff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            animation: glow 3s ease-in-out infinite alternate;
-        }
-
-        @keyframes glow {
-            from { filter: drop-shadow(0 0 20px rgba(255, 0, 0, 0.5)); }
-            to { filter: drop-shadow(0 0 40px rgba(255, 0, 0, 0.8)); }
-        }
-
-        .hero p {
-            font-size: 1.4rem;
-            margin-bottom: 3rem;
-            opacity: 0.9;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
-        }
-
-        .cta-buttons {
-            display: flex;
-            gap: 2rem;
-            justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 1.2rem 2.5rem;
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            transition: all 0.3s ease;
-            box-shadow: 0 6px 20px rgba(255, 0, 0, 0.3);
-            font-weight: bold;
-            border: 2px solid transparent;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(255, 0, 0, 0.5);
-        }
-
-        .btn-secondary {
-            background: linear-gradient(45deg, #00ffff, #0099cc);
-            box-shadow: 0 6px 20px rgba(0, 255, 255, 0.3);
-        }
-
-        .btn-secondary:hover {
-            box-shadow: 0 8px 25px rgba(0, 255, 255, 0.5);
-        }
-
-        /* الأقسام */
-        .section {
-            margin: 6rem 0;
-            padding: 3rem;
-            background: rgba(0, 0, 0, 0.4);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            border: 1px solid rgba(255, 0, 0, 0.2);
-            position: relative;
-        }
-
-        .section::before {
-            content: '';
-            position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            background: linear-gradient(45deg, #ff0000, #00ffff, #ffff00, #ff0000);
-            border-radius: 20px;
-            z-index: -1;
-            opacity: 0.3;
-        }
-
-        .section h2 {
-            font-size: 3rem;
-            margin-bottom: 2rem;
-            text-align: center;
-            color: #ff0000;
-            text-shadow: 0 0 10px rgba(255, 0, 0, 0.5);
-        }
-
-        .section h3 {
-            font-size: 2rem;
-            margin: 2rem 0 1rem 0;
-            color: #00ffff;
-            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
-            padding-bottom: 0.5rem;
-        }
-
-        .section p {
-            font-size: 1.1rem;
-            margin-bottom: 1.5rem;
-            opacity: 0.9;
-        }
-
-        /* الشبكات والكروت */
-        .cards-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .card {
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.8), rgba(20, 20, 40, 0.8));
-            padding: 2.5rem;
-            border-radius: 15px;
-            border: 2px solid rgba(255, 0, 0, 0.3);
-            transition: all 0.3s ease;
-            text-align: center;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.1), transparent);
-            transition: left 0.5s;
-        }
-
-        .card:hover::before {
-            left: 100%;
-        }
-
-        .card:hover {
-            transform: translateY(-10px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(255, 0, 0, 0.4);
-            border-color: #ff0000;
-        }
-
-        .card-icon {
-            font-size: 4rem;
-            margin-bottom: 1.5rem;
-            display: block;
-        }
-
-        .card h3 {
-            color: #ff0000;
-            margin-bottom: 1rem;
-            border: none;
-            text-align: center;
-        }
-
-        .card p {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* جداول الرواتب */
-        .salary-table {
-            width: 100%;
-            border-collapse: collapse;
-            margin: 2rem 0;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 10px;
-            overflow: hidden;
-        }
-
-        .salary-table th,
-        .salary-table td {
-            padding: 1rem;
-            text-align: center;
-            border-bottom: 1px solid rgba(255, 0, 0, 0.2);
-        }
-
-        .salary-table th {
-            background: linear-gradient(45deg, #ff0000, #cc0000);
-            color: white;
-            font-weight: bold;
-        }
-
-        .salary-table tr:hover {
-            background: rgba(255, 0, 0, 0.1);
-        }
-
-        /* قائمة المسارات */
-        .learning-path {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 2rem;
-            border-radius: 15px;
-            margin: 2rem 0;
-            border-left: 5px solid #ff0000;
-        }
-
-        .learning-path h4 {
-            color: #ff0000;
-            font-size: 1.5rem;
-            margin-bottom: 1rem;
-        }
-
-        .learning-path ul {
-            list-style: none;
-            padding-right: 1rem;
-        }
-
-        .learning-path li {
-            padding: 0.5rem 0;
-            position: relative;
-            padding-right: 2rem;
-        }
-
-        .learning-path li::before {
-            content: '🔹';
-            position: absolute;
-            right: 0;
-            color: #00ffff;
-        }
-
-        /* صور الهاكرز */
-        .hacker-profile {
-            display: flex;
-            align-items: center;
-            gap: 2rem;
-            margin: 2rem 0;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            border: 1px solid rgba(255, 0, 0, 0.3);
-        }
-
-        .hacker-avatar {
-            width: 120px;
-            height: 120px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #ff0000, #00ffff);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 3rem;
-            flex-shrink: 0;
-        }
-
-        .hacker-info h4 {
-            color: #ff0000;
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .hacker-info p {
-            opacity: 0.8;
-            font-size: 1rem;
-        }
-
-        /* أدوات الهاكينج */
-        .tools-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 1.5rem;
-            margin: 2rem 0;
-        }
-
-        .tool-item {
-            background: rgba(0, 0, 0, 0.6);
-            padding: 1.5rem;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            transition: all 0.3s ease;
-        }
-
-        .tool-item:hover {
-            transform: translateY(-5px);
-            border-color: #00ffff;
-            box-shadow: 0 10px 20px rgba(0, 255, 255, 0.2);
-        }
-
-        .tool-item h5 {
-            color: #00ffff;
-            margin-bottom: 0.5rem;
-            font-size: 1.2rem;
-        }
-
-        .tool-item p {
-            font-size: 0.9rem;
-            opacity: 0.8;
-        }
-
-        /* تحذيرات قانونية */
-        .warning-box {
-            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(255, 100, 0, 0.2));
-            border: 2px solid #ff0000;
-            border-radius: 15px;
-            padding: 2rem;
-            margin: 3rem 0;
-            text-align: center;
-        }
-
-        .warning-box h3 {
-            color: #ff0000;
-            font-size: 2rem;
-            margin-bottom: 1rem;
-            border: none;
-        }
-
-        .warning-box p {
-            font-size: 1.1rem;
-            font-weight: bold;
-        }
-
-        /* إحصائيات */
-        .stats-container {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            margin: 3rem 0;
-        }
-
-        .stat-box {
-            text-align: center;
-            padding: 2rem;
-            background: rgba(0, 0, 0, 0.6);
-            border-radius: 15px;
-            border: 2px solid rgba(0, 255, 255, 0.3);
-        }
-
-        .stat-number {
-            font-size: 3rem;
-            font-weight: bold;
-            color: #00ffff;
-            display: block;
-            margin-bottom: 0.5rem;
-        }
-
-        .stat-label {
-            font-size: 1rem;
-            opacity: 0.8;
-        }
-
-        /* الفوتر */
-        footer {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 3rem 2rem;
-            text-align: center;
-            border-top: 2px solid rgba(255, 0, 0, 0.3);
-            margin-top: 6rem;
-        }
-
-        /* استجابة للشاشات الصغيرة */
-        @media (max-width: 768px) {
-            .nav {
-                flex-direction: column;
-                gap: 1rem;
-            }
-            
-            .nav-links {
-                flex-wrap: wrap;
-                justify-content: center;
-            }
-            
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            
-            .section {
-                padding: 2rem 1rem;
-            }
-            
-            .cards-grid {
-                grid-template-columns: 1fr;
-            }
-            
-            .hacker-profile {
-                flex-direction: column;
-                text-align: center;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-        }
-
-        /* تأثيرات إضافية */
-        .highlight {
-            background: linear-gradient(45deg, rgba(255, 0, 0, 0.2), rgba(0, 255, 255, 0.2));
-            padding: 0.2rem 0.5rem;
-            border-radius: 5px;
-            font-weight: bold;
-        }
-
-        .code-snippet {
-            background: rgba(0, 0, 0, 0.8);
-            padding: 1rem;
-            border-radius: 8px;
-            font-family: 'Courier New', monospace;
-            border-left: 4px solid #00ffff;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
-
-        .progress-bar {
-            width: 100%;
-            height: 8px;
-            background: rgba(255, 255, 255, 0.1);
-            border-radius: 4px;
-            margin: 1rem 0;
-            overflow: hidden;
-        }
-
-        .progress {
-            height: 100%;
-            background: linear-gradient(90deg, #ff0000, #ffff00, #00ff00);
-            border-radius: 4px;
-            animation: progressMove 3s ease-in-out infinite;
-        }
-
-        @keyframes progressMove {
-            0% { width: 0%; }
-            50% { width: 100%; }
-            100% { width: 0%; }
-        }
-    </style>
-</head>
-<body>
-    <div class="animated-bg"></div>
-
-    <header>
-        <div class="nav">
-            <div class="brand">🔴 RedGate Academy</div>
-            <nav class="nav-links">
-                <a href="#intro">المقدمة</a>
-                <a href="#domains">المجالات</a>
-                <a href="#learning">مسارات التعلم</a>
-                <a href="#salaries">الرواتب</a>
-                <a href="#hackers">الهاكرز المشهورين</a>
-                <a href="#tools">الأدوات</a>
-                <a href="#tips">النصائح</a>
-            </nav>
+<!doctype html>
+<html lang="ar" dir="rtl" class="h-full">
+ <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>عجلة الحظ - معمل الأهرام للتحاليل الطبية</title>
+  <script src="/_sdk/element_sdk.js"></script>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800;900&amp;display=swap" rel="stylesheet">
+  <style>
+    body {
+      box-sizing: border-box;
+    }
+    
+    * {
+      font-family: 'Cairo', sans-serif;
+      -webkit-tap-highlight-color: transparent;
+      -webkit-touch-callout: none;
+      -webkit-font-smoothing: antialiased;
+      -moz-osx-font-smoothing: grayscale;
+    }
+
+    :root {
+      --primary-color: #0B2D4D;
+      --secondary-color: #B1121A;
+      --accent-color: #F4C430;
+      --neutral-light: #F7F7F7;
+      --neutral-white: #FFFFFF;
+    }
+
+    @media (max-width: 640px) {
+      .responsive-title { font-size: 1.65rem !important; line-height: 1.3 !important; }
+      .responsive-subtitle { font-size: 1.15rem !important; line-height: 1.4 !important; }
+      .responsive-text { font-size: 0.95rem !important; line-height: 1.5 !important; }
+      .coupon-card { min-height: 200px !important; font-size: 3.5rem !important; }
+      .coupon-discount-text { font-size: 0.85rem !important; }
+    }
+
+    .scroll-indicator {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%);
+      z-index: 100;
+      animation: bounce 2s infinite;
+      color: white;
+      font-size: 2rem;
+      text-shadow: 0 2px 10px rgba(0,0,0,0.5);
+    }
+
+    @keyframes bounce {
+      0%, 20%, 50%, 80%, 100% { transform: translateX(-50%) translateY(0); }
+      40% { transform: translateX(-50%) translateY(-20px); }
+      60% { transform: translateX(-50%) translateY(-10px); }
+    }
+
+    .logo-container {
+      width: 120px;
+      height: 120px;
+      margin: 0 auto 25px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #0B2D4D 0%, #1a4d7d 100%);
+      box-shadow: 0 4px 15px rgba(11, 45, 77, 0.12);
+      position: relative;
+      animation: logoFloat 3s ease-in-out infinite;
+    }
+
+    @keyframes logoFloat {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    .logo-container::before {
+      content: '';
+      position: absolute;
+      top: -3px;
+      left: -3px;
+      right: -3px;
+      bottom: -3px;
+      border-radius: 50%;
+      background: #B1121A;
+      z-index: -1;
+    }
+
+    .logo-icon {
+      font-size: 65px;
+    }
+
+    .coupon-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 25px;
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 20px;
+    }
+
+    .coupon-card {
+      background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);
+      border: 4px solid;
+      border-radius: 20px;
+      padding: 30px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.4s cubic-bezier(0.4, 0, 0.2, 1);
+      min-height: 250px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      box-shadow: 0 6px 20px rgba(0,0,0,0.08);
+    }
+
+    .coupon-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(45deg, transparent, rgba(255,255,255,0.3), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s;
+    }
+
+    .coupon-card:hover::before {
+      left: 100%;
+    }
+
+    .coupon-card:hover {
+      transform: translateY(-10px) scale(1.05);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+    }
+
+    .coupon-bronze { border-color: #CD7F32; background: linear-gradient(135deg, #fff9f0 0%, #ffe6cc 100%); }
+    .coupon-silver { border-color: #C0C0C0; background: linear-gradient(135deg, #f5f5f5 0%, #e8e8e8 100%); }
+    .coupon-gold { border-color: #FFD700; background: linear-gradient(135deg, #fffbf0 0%, #fff8dc 100%); }
+    .coupon-platinum { border-color: #E5E4E2; background: linear-gradient(135deg, #f0f0f0 0%, #d3d3d3 100%); }
+    .coupon-diamond { border-color: #B9F2FF; background: linear-gradient(135deg, #f0f8ff 0%, #e6f7ff 100%); }
+
+    .coupon-selected {
+      border-width: 6px;
+      animation: pulse-selected 1.5s infinite;
+    }
+
+    @keyframes pulse-selected {
+      0%, 100% { transform: scale(1); box-shadow: 0 15px 40px rgba(177, 18, 26, 0.4); }
+      50% { transform: scale(1.05); box-shadow: 0 20px 50px rgba(177, 18, 26, 0.6); }
+    }
+
+    .coupon-emoji {
+      font-size: 5rem;
+      margin-bottom: 15px;
+      filter: drop-shadow(0 4px 8px rgba(0,0,0,0.15));
+    }
+
+    .coupon-range {
+      font-size: 2.5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #B1121A 0%, #0B2D4D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      margin-bottom: 8px;
+    }
+
+    .coupon-discount-text {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #666;
+    }
+
+    .coupon-probability {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: #999;
+      margin-top: 8px;
+    }
+
+    .social-share-section {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      border-radius: 20px;
+      padding: 25px;
+      margin: 25px auto;
+      max-width: 600px;
+      text-align: center;
+      box-shadow: 0 8px 25px rgba(102, 126, 234, 0.3);
+    }
+
+    .social-share-buttons {
+      display: flex;
+      gap: 15px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 15px;
+    }
+
+    .social-btn {
+      background: white;
+      color: #667eea;
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      text-decoration: none;
+    }
+
+    .social-btn:hover {
+      transform: scale(1.08);
+      box-shadow: 0 8px 20px rgba(0,0,0,0.2);
+    }
+
+    .social-btn.shared {
+      background: linear-gradient(135deg, #11998e, #38ef7d);
+      color: white;
+    }
+
+    .number-display-container {
+      position: relative;
+      width: 100%;
+      max-width: 500px;
+      margin: 0 auto;
+    }
+
+    .number-display {
+      background: #ffffff;
+      border: 3px solid #0B2D4D;
+      border-radius: 24px;
+      padding: 50px 40px;
+      text-align: center;
+      box-shadow: 0 6px 20px rgba(11, 45, 77, 0.1);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-coupon {
+      font-size: 8rem;
+      margin: 20px 0;
+      filter: drop-shadow(0 6px 12px rgba(0,0,0,0.2));
+      animation: scaleIn 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    }
+
+    .percentage-value {
+      font-size: 5rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, #B1121A 0%, #0B2D4D 100%);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .rolling {
+      animation: roll-coupons 3s ease-out;
+    }
+
+    @keyframes roll-coupons {
+      0% { transform: translateY(-300px) scale(0.5) rotate(-180deg); opacity: 0; filter: blur(20px); }
+      20% { transform: translateY(-200px) scale(0.6) rotate(-120deg); opacity: 0.3; filter: blur(15px); }
+      40% { transform: translateY(-100px) scale(0.8) rotate(-60deg); opacity: 0.6; filter: blur(8px); }
+      60% { transform: translateY(-20px) scale(1.1) rotate(10deg); opacity: 0.9; filter: blur(2px); }
+      80% { transform: translateY(10px) scale(1.05) rotate(-5deg); opacity: 1; filter: blur(0); }
+      100% { transform: translateY(0) scale(1) rotate(0deg); opacity: 1; filter: blur(0); }
+    }
+
+    @keyframes scaleIn {
+      from { opacity: 0; transform: scale(0.5) rotate(-180deg); }
+      to { opacity: 1; transform: scale(1) rotate(0deg); }
+    }
+
+    .confetti {
+      position: fixed;
+      width: 12px;
+      height: 12px;
+      top: -10px;
+      z-index: 1000;
+      animation: confetti-fall 3s linear forwards;
+      border-radius: 2px;
+    }
+
+    @keyframes confetti-fall {
+      0% { transform: translateY(0) translateX(0) rotate(0deg) scale(1); opacity: 1; }
+      100% { transform: translateY(100vh) translateX(calc(var(--x-offset) * 1px)) rotate(720deg) scale(0.5); opacity: 0; }
+    }
+
+    .celebration-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: rgba(0, 0, 0, 0.85);
+      display: none;
+      justify-content: center;
+      align-items: center;
+      z-index: 999;
+      animation: fadeIn 0.5s ease-in;
+      overflow-y: auto;
+      padding: 20px;
+    }
+
+    .celebration-overlay.show {
+      display: flex;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .celebration-card {
+      background: linear-gradient(135deg, #0B2D4D, #1a4d7d);
+      padding: 50px 40px;
+      border-radius: 30px;
+      text-align: center;
+      transform: scale(0);
+      animation: popIn 0.7s cubic-bezier(0.68, -0.55, 0.265, 1.55) forwards;
+      box-shadow: 0 15px 50px rgba(0, 0, 0, 0.6);
+      border: 3px solid #B1121A;
+      max-width: 600px;
+      width: 100%;
+      max-height: 90%;
+      overflow-y: auto;
+    }
+
+    @keyframes popIn {
+      to { transform: scale(1); }
+    }
+
+    .pulse-animation {
+      animation: pulse-glow 2s infinite;
+    }
+
+    @keyframes pulse-glow {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.05); }
+    }
+
+    .gradient-bg {
+      background: linear-gradient(135deg, #B1121A 0%, #8B0E14 25%, #a01018 50%, #B1121A 75%, #8B0E14 100%);
+      background-size: 400% 400%;
+      animation: gradient-flow 20s ease infinite;
+    }
+
+    @keyframes gradient-flow {
+      0% { background-position: 0% 50%; }
+      50% { background-position: 100% 50%; }
+      100% { background-position: 0% 50%; }
+    }
+
+    .form-card {
+      background: linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(252, 253, 254, 0.95));
+      backdrop-filter: blur(10px);
+      box-shadow: 0 8px 30px rgba(11, 45, 77, 0.08);
+    }
+
+    .shake {
+      animation: shake-crazy 0.8s cubic-bezier(.36,.07,.19,.97) both;
+    }
+
+    @keyframes shake-crazy {
+      0%, 100% { transform: translate(0, 0) rotate(0deg); }
+      10% { transform: translate(-10px, -5px) rotate(-2deg); }
+      20% { transform: translate(10px, 5px) rotate(2deg); }
+      30% { transform: translate(-8px, 8px) rotate(-3deg); }
+      40% { transform: translate(8px, -8px) rotate(3deg); }
+      50% { transform: translate(-12px, 0) rotate(-4deg); }
+      60% { transform: translate(12px, 0) rotate(4deg); }
+      70% { transform: translate(-6px, -6px) rotate(-2deg); }
+      80% { transform: translate(6px, 6px) rotate(2deg); }
+      90% { transform: translate(-3px, 0) rotate(-1deg); }
+    }
+
+    .flash-overlay {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background: white;
+      opacity: 0;
+      pointer-events: none;
+      z-index: 998;
+    }
+
+    .flash-overlay.flash {
+      animation: flash 0.3s ease-out;
+    }
+
+    @keyframes flash {
+      0% { opacity: 0; }
+      50% { opacity: 0.3; background: #B1121A; }
+      100% { opacity: 0; }
+    }
+
+    .countdown-timer {
+      background: linear-gradient(135deg, #f093fb, #f5576c);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 15px;
+      font-weight: 900;
+      font-size: 18px;
+      box-shadow: 0 4px 15px rgba(240, 147, 251, 0.5);
+      margin: 15px 0;
+    }
+
+    .live-countdown {
+      font-size: 24px;
+      font-weight: 900;
+      color: white;
+      direction: ltr;
+      display: inline-block;
+    }
+
+    .action-buttons {
+      display: flex;
+      gap: 15px;
+      margin-top: 20px;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+
+    .action-btn {
+      background: white;
+      color: #0B2D4D;
+      padding: 12px 25px;
+      border-radius: 12px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+      font-size: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .action-btn:hover {
+      transform: scale(1.05);
+      box-shadow: 0 8px 20px rgba(177, 18, 26, 0.4);
+      background: linear-gradient(135deg, #B1121A 0%, #8B0E14 100%);
+      color: white;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      right: 30px;
+      background: linear-gradient(135deg, #4facfe, #00f2fe);
+      color: white;
+      padding: 15px 25px;
+      border-radius: 12px;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      z-index: 10000;
+      display: none;
+      animation: slideIn 0.3s ease-out;
+      font-weight: 700;
+    }
+
+    .toast.show {
+      display: block;
+    }
+
+    @keyframes slideIn {
+      from { transform: translateX(400px); opacity: 0; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .floating-contact-buttons {
+      position: fixed;
+      bottom: 30px;
+      left: 30px;
+      z-index: 9999;
+      display: flex;
+      flex-direction: column;
+      gap: 15px;
+    }
+
+    .floating-btn {
+      width: 70px;
+      height: 70px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 32px;
+      cursor: pointer;
+      transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.25);
+      animation: float-pulse 3s ease-in-out infinite;
+      border: 3px solid white;
+    }
+
+    .floating-btn:hover {
+      transform: scale(1.15) rotate(10deg);
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+    }
+
+    .whatsapp-btn {
+      background: linear-gradient(135deg, #25D366, #128C7E);
+    }
+
+    .facebook-btn {
+      background: linear-gradient(135deg, #1877F2, #0d5dbf);
+    }
+
+    @keyframes float-pulse {
+      0%, 100% { transform: translateY(0px); }
+      50% { transform: translateY(-8px); }
+    }
+
+    @media (max-width: 640px) {
+      .floating-contact-buttons {
+        bottom: 20px;
+        left: 20px;
+      }
+      .floating-btn {
+        width: 55px;
+        height: 55px;
+        font-size: 28px;
+      }
+    }
+
+    @media (max-width: 640px) {
+      .coupon-grid { grid-template-columns: 1fr; padding: 15px; gap: 20px; }
+      .celebration-card { padding: 30px 20px; }
+      .action-buttons { flex-direction: column; }
+      .action-btn { width: 100%; justify-content: center; }
+      .social-share-buttons { flex-direction: column; }
+      .social-btn { width: 100%; justify-content: center; }
+    }
+  </style>
+  <style>@view-transition { navigation: auto; }</style>
+  <script src="/_sdk/data_sdk.js" type="text/javascript"></script>
+ </head>
+ <body class="h-full">
+  <div class="flash-overlay" id="flashOverlay"></div>
+  <div class="toast" id="toast"></div><!-- Floating Contact Buttons -->
+  <div class="floating-contact-buttons"><a href="https://wa.me/201289614364?text=السلام%20عليكم%20ورحمة%20الله%20🌟%0A%0Aعايز%20أستفسر%20عن%20خدمات%20وأسعار%20معمل%20الأهرام%20للتحاليل%20الطبية%20🔬💙%0A%0Aممكن%20تفيدوني%20بالتفاصيل؟%20✨" target="_blank" rel="noopener noreferrer" class="floating-btn whatsapp-btn" title="تواصل معنا على واتساب"> <img src="https://upload.wikimedia.org/wikipedia/commons/1/19/WhatsApp_logo-color-vertical.svg" alt="WhatsApp" style="width: 40px; height: 40px; object-fit: contain;" loading="lazy" onerror="console.error('WhatsApp logo failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='💬';"> </a> <a href="https://www.facebook.com/share/17NJ4S465o/" target="_blank" rel="noopener noreferrer" class="floating-btn facebook-btn" title="تابعنا على فيسبوك"> <img src="https://upload.wikimedia.org/wikipedia/commons/7/79/Facebook_f_logo_2013.png" alt="Facebook" style="width: 35px; height: 35px; object-fit: contain;" loading="lazy" onerror="console.error('Facebook logo failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='📘';"> </a>
+  </div>
+  <div id="app" class="w-full h-full gradient-bg overflow-auto"><!-- About Page -->
+   <div id="aboutPage" class="min-h-full p-6" style="display: none; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+    <div class="max-w-4xl mx-auto">
+     <div class="bg-white rounded-3xl shadow-2xl p-10"><button onclick="showPage('formSection')" class="mb-6 text-lg font-bold responsive-text" style="color: #B1121A; cursor: pointer;">← العودة للصفحة الرئيسية</button>
+      <div class="text-center mb-8">
+       <div class="logo-container" style="background: white; border: 3px solid #0B2D4D;"><img src="https://i.ibb.co/FTfCNXH/image.png" alt="معمل الأهرام" style="width: 90%; height: 90%; object-fit: contain; border-radius: 50%;" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<span class=\'logo-icon\'>🔬</span>';">
+       </div>
+       <h1 class="text-4xl font-black mb-4 responsive-title" style="color: #0B2D4D;">عن معمل الأهرام</h1>
+      </div>
+      <div class="space-y-6 text-right" style="color: #333;">
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🏥 من نحن</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">معمل الأهرام للتحاليل الطبية هو معمل معتمد ومرخص يقدم خدمات التحاليل الطبية بأعلى معايير الجودة والدقة. نحن نؤمن بأن صحتكم أمانة في أيدينا.</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📍 موقعنا</h2>
+        <p class="text-lg font-medium responsive-text"><strong>العنوان:</strong> 399 شارع جمال عبد الناصر - أمام سنتر شاهين - أعلى عطور لينا</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📞 تواصل معنا</h2>
+        <p class="text-lg font-medium responsive-text"><strong>الهاتف:</strong><br>
+          📱 01289614364<br>
+          📱 01228015904</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🎯 عن هذا الموقع</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">هذا الموقع تابع رسمياً لمعمل الأهرام للتحاليل الطبية. نقدم لكم فرصة الحصول على خصومات حصرية من خلال عجلة الحظ الإلكترونية. جميع الأكواد صالحة للاستخدام في فروعنا.</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">✅ الترخيص والاعتماد</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">معمل الأهرام مرخص ومعتمد من وزارة الصحة المصرية. نلتزم بأعلى معايير الجودة والسلامة في جميع خدماتنا.</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🌟 خدماتنا</h2>
+        <ul class="text-lg font-medium space-y-2 responsive-text" style="list-style: none; padding-right: 0;">
+         <li>🔬 تحاليل شاملة (دم - بول - براز)</li>
+         <li>💉 تحاليل الهرمونات</li>
+         <li>🧬 تحاليل جينية</li>
+         <li>🦠 تحاليل الميكروبيولوجي</li>
+         <li>📊 تحاليل كيمياء حيوية</li>
+         <li>🩸 بنك الدم</li>
+        </ul>
+       </div>
+      </div>
+      <div class="mt-8 p-6 rounded-2xl" style="background: linear-gradient(135deg, #0B2D4D 0%, #1a4d7d 100%);">
+       <p class="text-white text-center text-xl font-black responsive-subtitle">#صحتكم_أمانة_في_أيدينا 💙</p>
+      </div>
+     </div>
+    </div>
+   </div><!-- Privacy Policy Page -->
+   <div id="privacyPage" class="min-h-full p-6" style="display: none; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+    <div class="max-w-4xl mx-auto">
+     <div class="bg-white rounded-3xl shadow-2xl p-10"><button onclick="showPage('formSection')" class="mb-6 text-lg font-bold responsive-text" style="color: #B1121A; cursor: pointer;">← العودة للصفحة الرئيسية</button>
+      <h1 class="text-4xl font-black mb-8 text-center responsive-title" style="color: #0B2D4D;">🔒 سياسة الخصوصية</h1>
+      <div class="space-y-6 text-right" style="color: #333;">
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📋 المعلومات التي نجمعها</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">نقوم بجمع المعلومات التالية عند استخدامك لعجلة الحظ:</p>
+        <ul class="text-lg font-medium space-y-2 mt-3 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>الاسم الكامل</li>
+         <li>النوع (ذكر/أنثى)</li>
+         <li>السن</li>
+         <li>رقم الهاتف (اختياري)</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🎯 كيف نستخدم معلوماتك</h2>
+        <ul class="text-lg font-medium space-y-2 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>إنشاء كود خصم شخصي لك</li>
+         <li>تخصيص تجربتك داخل الموقع</li>
+         <li>التواصل معك بشأن العروض والخصومات (إذا قدمت رقم هاتف)</li>
+         <li>تحسين خدماتنا</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🔐 حماية بياناتك</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">نحن ملتزمون بحماية خصوصيتك. جميع البيانات المجمعة تُستخدم فقط لأغراض المعمل ولن يتم مشاركتها مع أي طرف ثالث دون موافقتك الصريحة.</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📞 التواصل</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">قد نتواصل معك عبر واتساب أو الهاتف (إذا قدمت رقمك) لإرسال:</p>
+        <ul class="text-lg font-medium space-y-2 mt-3 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>تذكير بكود الخصم</li>
+         <li>عروض خاصة</li>
+         <li>معلومات عن خدمات المعمل</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">✅ حقوقك</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">لديك الحق في:</p>
+        <ul class="text-lg font-medium space-y-2 mt-3 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>الوصول إلى بياناتك الشخصية</li>
+         <li>طلب حذف بياناتك</li>
+         <li>رفض تلقي الرسائل التسويقية</li>
+         <li>تحديث معلوماتك</li>
+        </ul>
+        <p class="text-lg font-medium mt-4 responsive-text"><strong>للتواصل:</strong> 01289614364 أو 01228015904</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🍪 ملفات تعريف الارتباط (Cookies)</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">لا نستخدم ملفات تعريف الارتباط (Cookies) في هذا الموقع. جميع البيانات تُستخدم لمرة واحدة فقط لإنشاء كود الخصم.</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📅 تحديثات السياسة</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">قد نقوم بتحديث سياسة الخصوصية من وقت لآخر. سيتم إخطارك بأي تغييرات جوهرية.</p>
+        <p class="text-lg font-bold mt-3 responsive-text" style="color: #B1121A;">آخر تحديث: 28 يناير 2026</p>
+       </div>
+      </div>
+     </div>
+    </div>
+   </div><!-- Terms & Conditions Page -->
+   <div id="termsPage" class="min-h-full p-6" style="display: none; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+    <div class="max-w-4xl mx-auto">
+     <div class="bg-white rounded-3xl shadow-2xl p-10"><button onclick="showPage('formSection')" class="mb-6 text-lg font-bold responsive-text" style="color: #B1121A; cursor: pointer;">← العودة للصفحة الرئيسية</button>
+      <h1 class="text-4xl font-black mb-8 text-center responsive-title" style="color: #0B2D4D;">📜 الشروط والأحكام</h1>
+      <div class="space-y-6 text-right" style="color: #333;">
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🎟️ شروط استخدام كود الخصم</h2>
+        <ul class="text-lg font-medium space-y-2 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>كود الخصم صالح لمدة 48 ساعة فقط من وقت الحصول عليه</li>
+         <li>الكود صالح للاستخدام مرة واحدة فقط</li>
+         <li>يجب تقديم الكود في فرع المعمل قبل إجراء التحليل</li>
+         <li>الكود غير قابل للتحويل أو البيع</li>
+         <li>لا يمكن استبدال الكود بقيمة نقدية</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🔬 شروط استخدام الخصم</h2>
+        <ul class="text-lg font-medium space-y-2 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>الخصم ينطبق على جميع التحاليل الطبية المتاحة</li>
+         <li>لا يمكن دمج الخصم مع عروض أخرى</li>
+         <li>يجب حجز موعد مسبق عبر الهاتف أو واتساب</li>
+         <li>الخصم لا ينطبق على الفحوصات المنزلية</li>
+         <li>يجب إحضار بطاقة الهوية عند استخدام الكود</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">⚠️ الإلغاء والاسترجاع</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">في حالة انتهاء صلاحية الكود أو عدم استخدامه:</p>
+        <ul class="text-lg font-medium space-y-2 mt-3 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>لا يمكن تمديد صلاحية الكود</li>
+         <li>يمكنك الحصول على كود جديد بإعادة تجربة عجلة الحظ</li>
+         <li>المعمل غير مسؤول عن الأكواد المنتهية</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📱 استخدام الموقع</h2>
+        <ul class="text-lg font-medium space-y-2 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>يمكن استخدام عجلة الحظ مرة واحدة لكل شخص</li>
+         <li>يجب إدخال بيانات صحيحة ودقيقة</li>
+         <li>المعمل يحتفظ بالحق في إلغاء أي كود مشبوه</li>
+         <li>استخدام الموقع يعني موافقتك على هذه الشروط</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🎯 مسؤولية المعمل</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">معمل الأهرام يلتزم بـ:</p>
+        <ul class="text-lg font-medium space-y-2 mt-3 responsive-text" style="list-style: disc; padding-right: 25px;">
+         <li>احترام جميع الأكواد الصالحة</li>
+         <li>تقديم خدمات بأعلى جودة</li>
+         <li>حماية خصوصية بياناتك</li>
+         <li>الالتزام بمواعيد النتائج</li>
+        </ul>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">🔄 تعديل الشروط</h2>
+        <p class="text-lg font-medium leading-relaxed responsive-text">يحتفظ معمل الأهرام بالحق في تعديل هذه الشروط في أي وقت. سيتم إخطار المستخدمين بأي تغييرات جوهرية.</p>
+        <p class="text-lg font-bold mt-3 responsive-text" style="color: #B1121A;">آخر تحديث: 28 يناير 2026</p>
+       </div>
+       <div>
+        <h2 class="text-2xl font-black mb-3 responsive-subtitle" style="color: #B1121A;">📞 للاستفسارات</h2>
+        <p class="text-lg font-medium responsive-text">إذا كان لديك أي استفسار عن الشروط والأحكام، يرجى التواصل معنا:</p>
+        <p class="text-lg font-bold mt-3 responsive-text" style="color: #0B2D4D;">📱 01289614364<br>
+          📱 01228015904</p>
+       </div>
+      </div>
+      <div class="mt-8 p-6 rounded-2xl" style="background: linear-gradient(135deg, #B1121A 0%, #8B0E14 100%);">
+       <p class="text-white text-center text-lg font-black responsive-text">باستخدامك لهذا الموقع، فإنك توافق على جميع الشروط والأحكام المذكورة أعلاه</p>
+      </div>
+     </div>
+    </div>
+   </div><!-- Form Section -->
+   <div id="formSection" class="min-h-full flex items-center justify-center p-6">
+    <div class="form-card rounded-3xl shadow-2xl p-10 w-full max-w-lg">
+     <div class="text-center mb-8">
+      <div class="logo-container" style="background: white; border: 3px solid #0B2D4D;"><img src="https://i.ibb.co/FTfCNXH/image.png" alt="معمل الأهرام" style="width: 90%; height: 90%; object-fit: contain; border-radius: 50%;" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<span class=\'logo-icon\'>🔬</span>';">
+      </div>
+      <h1 id="labName" class="text-4xl font-black mb-3 responsive-title" style="background: linear-gradient(135deg, #0B2D4D 0%, #1a4d7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">معمل الأهرام للتحاليل الطبية</h1>
+      <p id="welcomeTitle" class="text-2xl font-bold mb-2 responsive-subtitle" style="background: linear-gradient(135deg, #B1121A 0%, #8B0E14 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">اختر خصمك بنفسك</p>
+      <p id="formInstructions" class="text-gray-700 mt-3 text-lg font-medium responsive-text">ادخل بياناتك واحصل على خصم فوري</p>
+      <div class="mt-5 p-4 rounded-xl" style="background: linear-gradient(135deg, #FFF3CD 0%, #FFF8E1 100%); border: 2px solid #F4C430;">
+       <p class="text-sm font-bold mb-2 responsive-text" style="color: #0B2D4D;">🏥 هذا الموقع تابع رسمياً لمعمل الأهرام للتحاليل الطبية</p>
+       <p class="text-sm font-semibold responsive-text" style="color: #666;">📍 399 شارع جمال عبد الناصر | 📞 01289614364</p>
+      </div>
+      <div class="mt-5 flex gap-3 justify-center flex-wrap"><button onclick="showPage('aboutPage')" class="text-sm font-bold px-4 py-2 rounded-lg transition-all hover:scale-105 responsive-text" style="background: white; color: #0B2D4D; border: 2px solid #0B2D4D;"> ℹ️ عن المعمل </button> <button onclick="showPage('privacyPage')" class="text-sm font-bold px-4 py-2 rounded-lg transition-all hover:scale-105 responsive-text" style="background: white; color: #0B2D4D; border: 2px solid #0B2D4D;"> 🔒 سياسة الخصوصية </button> <button onclick="showPage('termsPage')" class="text-sm font-bold px-4 py-2 rounded-lg transition-all hover:scale-105 responsive-text" style="background: white; color: #0B2D4D; border: 2px solid #0B2D4D;"> 📜 الشروط والأحكام </button>
+      </div>
+     </div>
+     <form id="userForm" class="space-y-6">
+      <div><label for="fullName" class="block font-black mb-2 text-lg responsive-text" style="color: #0B2D4D;">الاسم الكامل *</label> <input type="text" id="fullName" required class="w-full px-5 py-4 border-3 rounded-xl focus:outline-none transition-all text-gray-800 text-lg font-medium responsive-text" style="border: 3px solid #B1121A; background: white; box-shadow: 0 2px 10px rgba(177, 18, 26, 0.1);" placeholder="مثال: أحمد محمد علي">
+      </div>
+      <div><label for="gender" class="block font-black mb-2 text-lg responsive-text" style="color: #0B2D4D;">النوع *</label> <select id="gender" required class="w-full px-5 py-4 border-3 rounded-xl focus:outline-none transition-all text-gray-800 text-lg font-medium responsive-text" style="border: 3px solid #0B2D4D; background: white; box-shadow: 0 2px 10px rgba(11, 45, 77, 0.1);"> <option value="">اختر النوع</option> <option value="male">ذكر</option> <option value="female">أنثى</option> </select>
+      </div>
+      <div><label for="age" class="block font-black mb-2 text-lg responsive-text" style="color: #0B2D4D;">السن *</label> <input type="number" id="age" required min="1" max="120" class="w-full px-5 py-4 border-3 rounded-xl focus:outline-none transition-all text-gray-800 text-lg font-medium responsive-text" style="border: 3px solid #0B2D4D; background: white; box-shadow: 0 2px 10px rgba(11, 45, 77, 0.1);" placeholder="مثال: 25">
+      </div>
+      <div><label for="phone" class="block font-black mb-2 text-lg responsive-text" style="color: #0B2D4D;">رقم الموبايل <span class="text-gray-600 font-semibold">(اختياري)</span></label> <input type="tel" id="phone" class="w-full px-5 py-4 border-3 rounded-xl focus:outline-none transition-all text-gray-800 text-lg font-medium responsive-text" style="border: 3px solid #F4C430; background: white; box-shadow: 0 2px 10px rgba(244, 196, 48, 0.1);" placeholder="مثال: 01012345678">
+      </div><button type="submit" class="w-full text-white font-black py-5 rounded-xl transition-all duration-500 transform hover:scale-105 hover:shadow-2xl shadow-xl text-xl responsive-text" style="background: linear-gradient(135deg, #B1121A 0%, #8B0E14 100%); box-shadow: 0 6px 20px rgba(177, 18, 26, 0.25);"> 🎯 ابدأ اللعب واكسب خصمك </button>
+     </form>
+     <div class="mt-8 text-center">
+      <p class="text-sm font-semibold text-gray-600 mb-3 responsive-text">باستخدامك لهذا الموقع، فإنك توافق على:</p>
+      <div class="flex gap-3 justify-center flex-wrap"><button onclick="showPage('privacyPage')" class="text-xs font-bold underline responsive-text" style="color: #0B2D4D;">سياسة الخصوصية</button> <span class="text-gray-400">•</span> <button onclick="showPage('termsPage')" class="text-xs font-bold underline responsive-text" style="color: #0B2D4D;">الشروط والأحكام</button>
+      </div>
+     </div>
+    </div>
+   </div><!-- Difficulty Selection Section -->
+   <div id="difficultySection" class="min-h-full flex flex-col items-center justify-start p-6" style="display: none; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+    <div class="scroll-indicator" id="scrollIndicator">
+     ⬇️
+    </div>
+    <div class="text-center mb-10 mt-10">
+     <div class="logo-container" style="width: 100px; height: 100px; margin-bottom: 20px; background: white; border: 3px solid #0B2D4D;"><img src="https://i.ibb.co/FTfCNXH/image.png" alt="معمل الأهرام" style="width: 85%; height: 85%; object-fit: contain; border-radius: 50%;" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<span class=\'logo-icon\' style=\'font-size: 55px;\'>🔬</span>';">
+     </div>
+     <h1 id="labNameDifficulty" class="text-5xl font-black mb-5 responsive-title" style="color: #0B2D4D;">معمل الأهرام للتحاليل الطبية</h1>
+     <div class="text-2xl font-bold mb-4 responsive-subtitle" style="color: #0B2D4D;"><span>إدارة المعمل ترحب بحضرتك يا </span> <span id="titleGreetingDifficulty" style="color: #B1121A;"></span>
+     </div>
+    </div>
+    <div class="max-w-4xl w-full mb-8">
+     <h2 class="text-3xl font-black mb-3 text-center responsive-subtitle" style="color: #0B2D4D;">🎯 اختر مستوى الصعوبة</h2>
+     <p class="text-xl font-bold text-center mb-6 responsive-text" style="color: #B1121A;">كل ما الخصم أعلى... الفرصة أقل! 🔥</p>
+     <div class="coupon-grid"><!-- Bronze Tier -->
+      <div class="coupon-card coupon-bronze" data-tier="bronze">
+       <div class="coupon-emoji">
+        🥉
+       </div>
+       <div class="coupon-range">
+        5% - 10%
+       </div>
+       <div class="coupon-discount-text">
+        البرونزي
+       </div>
+       <div class="coupon-probability">
+        فرصة: 40%
+       </div>
+      </div><!-- Silver Tier -->
+      <div class="coupon-card coupon-silver" data-tier="silver">
+       <div class="coupon-emoji">
+        🥈
+       </div>
+       <div class="coupon-range">
+        11% - 15%
+       </div>
+       <div class="coupon-discount-text">
+        الفضي
+       </div>
+       <div class="coupon-probability">
+        فرصة: 30%
+       </div>
+      </div><!-- Gold Tier -->
+      <div class="coupon-card coupon-gold" data-tier="gold">
+       <div class="coupon-emoji">
+        🥇
+       </div>
+       <div class="coupon-range">
+        16% - 20%
+       </div>
+       <div class="coupon-discount-text">
+        الذهبي
+       </div>
+       <div class="coupon-probability">
+        فرصة: 20%
+       </div>
+      </div><!-- Platinum Tier -->
+      <div class="coupon-card coupon-platinum" data-tier="platinum">
+       <div class="coupon-emoji">
+        💎
+       </div>
+       <div class="coupon-range">
+        21% - 25%
+       </div>
+       <div class="coupon-discount-text">
+        البلاتيني
+       </div>
+       <div class="coupon-probability">
+        فرصة: 7%
+       </div>
+      </div><!-- Diamond Tier -->
+      <div class="coupon-card coupon-diamond" data-tier="diamond">
+       <div class="coupon-emoji">
+        💠
+       </div>
+       <div class="coupon-range">
+        26% - 30%
+       </div>
+       <div class="coupon-discount-text">
+        الماسي
+       </div>
+       <div class="coupon-probability">
+        فرصة: 3%
+       </div>
+      </div>
+     </div>
+    </div><!-- Social Share Section -->
+    <div class="social-share-section" id="socialShareSection">
+     <h3 id="socialShareText" class="text-2xl font-black text-white mb-3 responsive-subtitle">📱 شارك للحصول على فرصة أفضل</h3>
+     <p class="text-lg font-bold text-white mb-4 responsive-text">شارك على السوشيال ميديا وضاعف فرصتك! ✨</p>
+     <div class="social-share-buttons"><a href="#" class="social-btn" id="facebookBtn" target="_blank" rel="noopener noreferrer"> <span>📘</span> <span>فيسبوك</span> </a> <a href="#" class="social-btn" id="instagramBtn" target="_blank" rel="noopener noreferrer"> <span>📷</span> <span>انستجرام</span> </a> <a href="#" class="social-btn" id="whatsappShareBtn" target="_blank" rel="noopener noreferrer"> <span>💬</span> <span>واتساب</span> </a>
+     </div>
+     <p class="text-sm font-semibold text-white mt-4 responsive-text" id="shareStatus">لم تشارك بعد</p>
+    </div><button id="continueButton" class="text-white font-black py-5 px-16 rounded-full transition-all transform shadow-2xl text-2xl mt-8 mb-20 responsive-subtitle" style="background: linear-gradient(135deg, #B1121A, #8B0E14); opacity: 0.5; cursor: not-allowed;" disabled> ⏭️ استمر للسحب </button>
+   </div><!-- Spin Section -->
+   <div id="wheelSection" class="min-h-full flex flex-col items-center justify-center p-6" style="display: none; background: linear-gradient(135deg, #ffffff 0%, #f8f9fa 100%);">
+    <div class="text-center mb-10">
+     <div class="logo-container" style="width: 100px; height: 100px; margin-bottom: 20px; background: white; border: 3px solid #0B2D4D;"><img src="https://i.ibb.co/FTfCNXH/image.png" alt="معمل الأهرام" style="width: 85%; height: 85%; object-fit: contain; border-radius: 50%;" loading="lazy" onerror="console.error('Image failed to load:', this.src); this.style.display='none'; this.parentElement.innerHTML='<span class=\'logo-icon\' style=\'font-size: 55px;\'>🔬</span>';">
+     </div>
+     <h1 id="labNameWheel" class="text-5xl font-black mb-5 responsive-title" style="color: #0B2D4D;">معمل الأهرام للتحاليل الطبية</h1>
+     <p id="tierSelected" class="text-2xl font-bold mb-4 responsive-subtitle" style="color: #B1121A;"></p>
+    </div>
+    <div class="number-display-container mb-10">
+     <div class="number-display">
+      <div id="resultCoupon" class="result-coupon">
+       🎁
+      </div>
+      <div class="percentage-value" id="percentageValue">
+       0%
+      </div>
+      <div class="text-gray-800 text-xl font-black mt-4 responsive-text">
+       خصمك الفوري
+      </div>
+     </div>
+    </div><button id="spinButton" class="text-white font-black py-5 px-16 rounded-full transition-all transform hover:scale-110 shadow-2xl text-2xl pulse-animation responsive-subtitle" style="background: linear-gradient(135deg, #B1121A, #8B0E14);"> <span id="spinButtonText">🎯 اسحب خصمك الآن</span> </button>
+   </div><!-- Celebration Overlay -->
+   <div id="celebrationOverlay" class="celebration-overlay">
+    <div class="celebration-card">
+     <div class="text-7xl mb-6">
+      🎊
+     </div>
+     <h2 id="congratulationsText" class="text-6xl font-black text-white mb-5 responsive-title" style="text-shadow: 0 4px 12px rgba(0, 0, 0, 0.35);">مبروك</h2>
+     <p id="winnerName" class="text-3xl mb-5 font-black responsive-subtitle" style="color: #F4C430;">أحمد محمد! 🎊</p>
+     <div class="rounded-2xl py-6 px-8 mb-4" style="background: linear-gradient(135deg, #B1121A 0%, #8B0E14 100%);">
+      <div id="winnerCoupon" class="text-7xl mb-3">
+       🥇
+      </div>
+      <p class="text-7xl font-black mb-2 responsive-title" style="color: #F4C430;" id="discountResult">15%</p>
+      <p class="text-2xl font-bold mb-3 responsive-subtitle" style="color: white;">خصم فوري</p>
+      <div class="rounded-lg py-3 px-4 mb-3" style="background: rgba(255, 255, 255, 0.95);">
+       <p class="text-sm font-black mb-1 responsive-text" style="color: #0B2D4D;">كود الخصم</p>
+       <p class="text-2xl font-black responsive-subtitle" style="color: #B1121A;" id="discountCode">AH2024-15%-ABCD</p>
+      </div>
+      <div style="background: white; padding: 15px; border-radius: 12px; display: inline-block; margin: 15px 0;"><img src="https://i.postimg.cc/yg6nknfs/image.png" alt="QR Code" style="width: 150px; height: 150px; display: block;" loading="lazy" onerror="console.error('QR Code failed to load:', this.src); this.style.background='#e5e7eb'; this.alt='QR Code غير متاح';">
+      </div>
+     </div>
+     <div class="countdown-timer" style="background: linear-gradient(135deg, #B1121A, #8B0E14);">
+      <div class="mb-2 responsive-text">
+       ⏰ ينتهي الخصم في:
+      </div>
+      <div class="live-countdown" id="liveCountdown">
+       00:00:00
+      </div>
+     </div>
+     <div class="rounded-xl p-4 mb-4" style="background: linear-gradient(135deg, #F7F7F7 0%, #fafafa 100%); border: 2px solid #B1121A;">
+      <p class="text-lg font-black mb-2 responsive-text" style="background: linear-gradient(135deg, #0B2D4D 0%, #1a4d7d 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">شكراً لثقتك في معمل الأهرام 🙏</p>
+      <p class="text-md font-bold mb-2 responsive-text" style="background: linear-gradient(135deg, #B1121A 0%, #8B0E14 100%); -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;">#صحتكم_أمانة_في_أيدينا</p>
+      <p class="text-sm font-bold responsive-text" style="color: #0B2D4D;">📍 399 شارع جمال عبد الناصر - أمام سنتر شاهين - أعلى عطور لينا</p>
+      <p class="text-sm font-bold mt-2 responsive-text" style="color: #0B2D4D;">📞 01289614364 | 01228015904</p>
+     </div>
+     <div class="rounded-xl p-4 mb-4" style="background: linear-gradient(135deg, #FFF3CD 0%, #FFF8E1 100%); border: 2px solid #F4C430;">
+      <p class="text-lg font-black responsive-text" style="color: #0B2D4D;">📸 ملحوظة هامة:</p>
+      <p class="text-md font-bold mt-2 responsive-text" style="color: #B1121A;">خد سكرين شوت للشاشة دي واحتفظ بيه لحد ما تيجي المعمل 📱✨</p>
+     </div>
+     <div class="action-buttons"><button id="copyBtn" class="action-btn responsive-text"> <span>📋</span> <span>نسخ الكود</span> </button> <button id="whatsappBtn" class="action-btn responsive-text"> <span>📱</span> <span>واتساب</span> </button> <button id="printBtn" class="action-btn responsive-text"> <span>🖨️</span> <span>طباعة</span> </button>
+     </div>
+    </div>
+   </div>
+  </div>
+  <script>
+    const defaultConfig = {
+      lab_name: "معمل الأهرام للتحاليل الطبية",
+      welcome_title: "اختر خصمك بنفسك",
+      form_instructions: "ادخل بياناتك واحصل على خصم فوري",
+      spin_button_text: "اسحب خصمك الآن",
+      congratulations_text: "مبروك",
+      social_share_text: "شارك للحصول على فرصة أفضل",
+      primary_color: "#0B2D4D",
+      secondary_color: "#B1121A",
+      accent_color: "#F4C430",
+      font_family: "Cairo",
+      font_size: 16
+    };
+
+    const DIFFICULTY_TIERS = {
+      bronze: { min: 5, max: 10, weight: 40, emoji: '🥉', name: 'البرونزي' },
+      silver: { min: 11, max: 15, weight: 30, emoji: '🥈', name: 'الفضي' },
+      gold: { min: 16, max: 20, weight: 20, emoji: '🥇', name: 'الذهبي' },
+      platinum: { min: 21, max: 25, weight: 7, emoji: '💎', name: 'البلاتيني' },
+      diamond: { min: 26, max: 30, weight: 3, emoji: '💠', name: 'الماسي' }
+    };
+
+    const LAB_PHONE_1 = "01289614364";
+    const LAB_PHONE_2 = "01228015904";
+    const LAB_ADDRESS = "399 شارع جمال عبد الناصر - أمام سنتر شاهين - أعلى عطور لينا";
+
+    let hasSpun = false;
+    let currentUserData = null;
+    let selectedTier = null;
+    let hasShared = false;
+    let currentDiscount = 0;
+    let currentDiscountCode = "";
+    let currentExpiryDate = "";
+    let countdownInterval = null;
+
+    function showPage(pageId) {
+      const pages = ['formSection', 'difficultySection', 'wheelSection', 'aboutPage', 'privacyPage', 'termsPage'];
+      pages.forEach(id => {
+        const element = document.getElementById(id);
+        if (element) {
+          element.style.display = 'none';
+        }
+      });
+      const targetPage = document.getElementById(pageId);
+      if (targetPage) {
+        targetPage.style.display = pageId === 'wheelSection' ? 'flex' : (pageId === 'difficultySection' ? 'flex' : (pageId === 'formSection' ? 'flex' : 'block'));
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      }
+    }
+
+    function updateUI(config) {
+      document.getElementById('labName').textContent = config.lab_name || defaultConfig.lab_name;
+      document.getElementById('labNameDifficulty').textContent = config.lab_name || defaultConfig.lab_name;
+      document.getElementById('labNameWheel').textContent = config.lab_name || defaultConfig.lab_name;
+      document.getElementById('welcomeTitle').textContent = config.welcome_title || defaultConfig.welcome_title;
+      document.getElementById('formInstructions').textContent = config.form_instructions || defaultConfig.form_instructions;
+      document.getElementById('spinButtonText').textContent = `🎯 ${config.spin_button_text || defaultConfig.spin_button_text}`;
+      document.getElementById('congratulationsText').textContent = config.congratulations_text || defaultConfig.congratulations_text;
+      document.getElementById('socialShareText').textContent = `📱 ${config.social_share_text || defaultConfig.social_share_text}`;
+    }
+
+    async function onConfigChange(config) {
+      updateUI(config);
+    }
+
+    function showToast(message) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, 3000);
+    }
+
+    function getTitle(gender, age) {
+      const ageNum = parseInt(age);
+      if (gender === 'male') {
+        if (ageNum < 18) return 'أستاذ';
+        if (ageNum >= 18 && ageNum < 50) return 'استاذ';
+        if (ageNum >= 50) return 'حاج';
+      } else if (gender === 'female') {
+        if (ageNum < 18) return 'آنسة';
+        if (ageNum >= 18 && ageNum < 40) return 'استاذة';
+        if (ageNum >= 40 && ageNum < 60) return 'مدام';
+        if (ageNum >= 60) return 'حاجة';
+      }
+      return 'استاذ/ة';
+    }
+
+    function generateDiscountByTier(tier) {
+      const tierData = DIFFICULTY_TIERS[tier];
+      const random = Math.random() * 100;
+      let cumulative = 0;
+      
+      for (const [key, data] of Object.entries(DIFFICULTY_TIERS)) {
+        cumulative += data.weight;
+        if (random <= cumulative) {
+          const min = data.min;
+          const max = data.max;
+          const discount = Math.floor(Math.random() * (max - min + 1)) + min;
+          return { discount, actualTier: key, emoji: data.emoji };
+        }
+      }
+      
+      const min = tierData.min;
+      const max = tierData.max;
+      const discount = Math.floor(Math.random() * (max - min + 1)) + min;
+      return { discount, actualTier: tier, emoji: tierData.emoji };
+    }
+
+    function generateDiscountCode(discount) {
+      const prefix = "AH";
+      const year = "2026";
+      const random = Math.random().toString(36).substring(2, 6).toUpperCase();
+      const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789';
+      const randomSuffix = Array.from({length: 4}, () => chars[Math.floor(Math.random() * chars.length)]).join('');
+      return `${prefix}${year}-${discount}P-${randomSuffix}`;
+    }
+
+    function calculateExpiryDate() {
+      const now = new Date();
+      const expiry = new Date(now.getTime() + (48 * 60 * 60 * 1000));
+      const days = ['الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة', 'السبت'];
+      const dayName = days[expiry.getDay()];
+      const day = expiry.getDate();
+      const month = expiry.getMonth() + 1;
+      const year = expiry.getFullYear();
+      const hours = expiry.getHours();
+      const minutes = expiry.getMinutes().toString().padStart(2, '0');
+      const ampm = hours >= 12 ? 'مساء' : 'صباحا';
+      const displayHours = hours > 12 ? hours - 12 : hours;
+      return {
+        formatted: `${dayName} ${day}/${month}/${year} - ${displayHours}:${minutes} ${ampm}`,
+        timestamp: expiry.toISOString()
+      };
+    }
+
+    function startLiveCountdown(expiryDate) {
+      const expiryTimestamp = new Date(expiryDate).getTime();
+      if (countdownInterval) clearInterval(countdownInterval);
+      countdownInterval = setInterval(() => {
+        const now = new Date().getTime();
+        const distance = expiryTimestamp - now;
+        if (distance < 0) {
+          clearInterval(countdownInterval);
+          document.getElementById('liveCountdown').textContent = 'انتهى';
+          return;
+        }
+        const hours = Math.floor(distance / (1000 * 60 * 60));
+        const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+        const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+        document.getElementById('liveCountdown').textContent = 
+          `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+      }, 1000);
+    }
+
+    function createConfetti() {
+      const colors = ['#B1121A', '#0B2D4D', '#F4C430', '#8B0E14', '#1a4d7d'];
+      const shapes = ['●', '■', '▲', '★', '🎉', '🎊', '🔬', '💉', '✨'];
+      for (let i = 0; i < 150; i++) {
+        setTimeout(() => {
+          const confetti = document.createElement('div');
+          confetti.className = 'confetti';
+          confetti.style.left = Math.random() * 100 + '%';
+          confetti.style.background = colors[Math.floor(Math.random() * colors.length)];
+          confetti.style.setProperty('--x-offset', (Math.random() - 0.5) * 300);
+          confetti.textContent = shapes[Math.floor(Math.random() * shapes.length)];
+          confetti.style.fontSize = (Math.random() * 10 + 12) + 'px';
+          confetti.style.color = colors[Math.floor(Math.random() * colors.length)];
+          document.body.appendChild(confetti);
+          setTimeout(() => confetti.remove(), 3000);
+        }, i * 15);
+      }
+    }
+
+    // Form Submit
+    document.getElementById('userForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const fullName = document.getElementById('fullName').value.trim();
+      const gender = document.getElementById('gender').value;
+      const age = document.getElementById('age').value.trim();
+      const phone = document.getElementById('phone').value.trim();
+
+      if (!fullName || !gender || !age) {
+        showToast('❌ برجاء ملء جميع الحقول المطلوبة');
+        return;
+      }
+
+      const title = getTitle(gender, age);
+      currentUserData = { full_name: fullName, gender, age, phone: phone || 'غير معروف', title };
+      
+      document.getElementById('formSection').style.display = 'none';
+      document.getElementById('difficultySection').style.display = 'flex';
+      document.getElementById('titleGreetingDifficulty').textContent = `${title} ${fullName}`;
+
+      setTimeout(() => {
+        const shareSection = document.getElementById('socialShareSection');
+        if (shareSection) {
+          shareSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
+      }, 500);
+    });
+
+    // Difficulty Selection
+    document.querySelectorAll('.coupon-card').forEach(card => {
+      card.addEventListener('click', function() {
+        document.querySelectorAll('.coupon-card').forEach(c => c.classList.remove('coupon-selected'));
+        this.classList.add('coupon-selected');
+        selectedTier = this.dataset.tier;
+        updateContinueButton();
+      });
+    });
+
+    function updateContinueButton() {
+      const continueBtn = document.getElementById('continueButton');
+      if (selectedTier) {
+        continueBtn.disabled = false;
+        continueBtn.style.opacity = '1';
+        continueBtn.style.cursor = 'pointer';
+        continueBtn.style.transform = 'scale(1)';
+        continueBtn.classList.add('pulse-animation');
+        continueBtn.addEventListener('mouseenter', function() {
+          if (!this.disabled) this.style.transform = 'scale(1.1)';
+        });
+        continueBtn.addEventListener('mouseleave', function() {
+          if (!this.disabled) this.style.transform = 'scale(1)';
+        });
+      }
+    }
+
+    // Social Share
+    const shareMessage = `🎊 انضم لمعمل الأهرام واحصل على خصومات حصرية! 🔬✨\n\nاختبر حظك واحصل على خصم يصل لـ 30%! 🎯🎁\n\n#معمل_الأهرام #صحتكم_أمانة_في_أيدينا 💙`;
+
+    document.getElementById('facebookBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      window.open('https://www.facebook.com/share/17NJ4S465o/', '_blank', 'noopener,noreferrer');
+      markAsShared(this);
+    });
+
+    document.getElementById('instagramBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const instagramModal = document.createElement('div');
+      instagramModal.style.cssText = 'position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 10000; display: flex; align-items: center; justify-content: center; padding: 20px;';
+      instagramModal.innerHTML = `
+        <div style="background: linear-gradient(135deg, #f09433 0%,#e6683c 25%,#dc2743 50%,#cc2366 75%,#bc1888 100%); padding: 40px; border-radius: 25px; text-align: center; max-width: 500px; animation: popIn 0.5s ease;">
+          <div style="font-size: 80px; margin-bottom: 20px;">📸</div>
+          <h3 style="color: white; font-size: 28px; font-weight: 900; margin-bottom: 20px;">شارك على انستجرام</h3>
+          <p style="color: white; font-size: 18px; font-weight: 700; margin-bottom: 25px; line-height: 1.6;">
+            ١. خد سكرين شوت للصفحة دي 📱<br>
+            ٢. افتح انستجرام<br>
+            ٣. شارك الصورة في الستوري أو البوست<br>
+            ٤. استخدم الهاشتاج: #معمل_الأهرام
+          </p>
+          <button onclick="this.parentElement.parentElement.remove(); document.getElementById('instagramBtn').classList.add('shared'); document.getElementById('shareStatus').textContent = '✅ شكراً للمشاركة! فرصتك تضاعفت! 🎉'; hasShared = true;" style="background: white; color: #bc1888; padding: 15px 40px; border-radius: 15px; border: none; font-weight: 900; font-size: 18px; cursor: pointer; font-family: Cairo;">
+            ✅ فهمت، شكراً!
+          </button>
         </div>
-    </header>
-
-    <main>
-        <section class="hero">
-            <h1>🔥 دليلك الشامل للأمن السيبراني</h1>
-            <p>اكتشف عالم الهاكينج الأخلاقي والأمن السيبراني من الصفر حتى الاحتراف. تعلم Red Teaming، اختبار الاختراق، والدفاع السيبراني مع أحدث الأدوات والتقنيات</p>
-            <div class="cta-buttons">
-                <a href="#intro" class="btn">🚀 ابدأ رحلتك الآن</a>
-                <a href="#learning" class="btn btn-secondary">📚 مسارات التعلم</a>
-            </div>
-        </section>
-
-        <section class="section" id="intro">
-            <h2>🔐 مقدمة عن الهاكينج والأمن السيبراني</h2>
-            
-            <h3>ما هو الهكر؟</h3>
-            <p>الهكر في الأصل يعني <span class="highlight">الشخص الذي يستخدم معرفته التقنية لحل المشاكل بطرق إبداعية</span>. في عالم الأمن السيبراني، الهاكر هو شخص يستطيع اكتشاف نقاط الضعف في الأنظمة والشبكات، سواء لحمايتها أو استغلالها.</p>
-
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">⚪</span>
-                    <h3>الهاكر الأخلاقي (White Hat)</h3>
-                    <p>يستخدم مهاراته لحماية الأنظمة واكتشاف الثغرات لإصلاحها. يعمل مع الشركات والمؤسسات لتحسين أمانها السيبراني.</p>
-                </div>
-                <div class="card">
-                    <span class="card-icon">⚫</span>
-                    <h3>الهاكر الضار (Black Hat)</h3>
-                    <p>يستغل الثغرات لأغراض شخصية أو إجرامية مثل سرقة البيانات، الابتزاز، أو إلحاق الضرر بالأنظمة.</p>
-                </div>
-                <div class="card">
-                    <span class="card-icon">🔘</span>
-                    <h3>الهاكر الرمادي (Gray Hat)</h3>
-                    <p>يقع بين الاثنين، قد يكتشف الثغرات دون إذن ولكن بنوايا حسنة، أو يطلب مقابل مالي لإصلاحها.</p>
-                </div>
-            </div>
-
-            <h3>لمحة تاريخية عن عالم الهكر</h3>
-            <div class="hacker-profile">
-                <div class="hacker-avatar">👨‍💻</div>
-                <div class="hacker-info">
-                    <h4>بداية الهكر (1960s)</h4>
-                    <p>بدأ مصطلح "الهكر" في معهد MIT مع طلاب الحاسوب الذين كانوا يحبون استكشاف الأنظمة وتطويرها. كان المصطلح إيجابياً ويعني الإبداع والابتكار.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">📞</div>
-                <div class="hacker-info">
-                    <h4>عصر Phone Phreaking (1970s)</h4>
-                    <p>ظهر هاكرز الهاتف مثل John Draper (Captain Crunch) الذي اكتشف كيفية خداع أنظمة الهاتف باستخدام صافرة من علبة حبوب الإفطار.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">💻</div>
-                <div class="hacker-info">
-                    <h4>عصر الحاسوب الشخصي (1980s-1990s)</h4>
-                    <p>انتشار الحواسيب الشخصية والإنترنت أدى لظهور مجموعات هاكرز مثل Chaos Computer Club و Legion of Doom، وبدأت الحكومات تأخذ الأمر بجدية.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="domains">
-            <h2>💼 أهم مجالات الأمن السيبراني</h2>
-
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">🔴</span>
-                    <h3>Red Team - الفريق الأحمر</h3>
-                    <p>محاكاة الهجمات الحقيقية لاختبار دفاعات المؤسسة. يشمل اختبار الاختراق، الهندسة الاجتماعية، واختراق الأنظمة الفيزيائية.</p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 90%;"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🔵</span>
-                    <h3>Blue Team - الفريق الأزرق</h3>
-                    <p>الدفاع والمراقبة والاستجابة للحوادث. يشمل تحليل السجلات، مراقبة الشبكة، والتحقيق في الحوادث الأمنية.</p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 85%;"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🟣</span>
-                    <h3>Purple Team - الفريق البنفسجي</h3>
-                    <p>التعاون بين Red و Blue Teams لتحسين الدفاعات. يركز على تبادل المعرفة وتطوير استراتيجيات الأمان.</p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 75%;"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🔍</span>
-                    <h3>Digital Forensics - الطب الشرعي الرقمي</h3>
-                    <p>تحليل الأدلة الرقمية والتحقيق في الجرائم السيبرانية. يشمل استرداد البيانات المحذوفة وتتبع المجرمين.</p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 70%;"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🌐</span>
-                    <h3>Network Security - أمان الشبكات</h3>
-                    <p>حماية الشبكات من التسلل والهجمات. يشمل إعداد جدران الحماية، أنظمة كشف التسلل، والتشفير.</p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 80%;"></div>
-                    </div>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🦠</span>
-                    <h3>Malware Analysis - تحليل البرمجيات الخبيثة</h3>
-                    <p>دراسة وتحليل الفيروسات وأحصنة طروادة لفهم طريقة عملها وتطوير الحماية ضدها.</p>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 65%;"></div>
-                    </div>
-                </div>
-            </div>
-
-            <div class="stats-container">
-                <div class="stat-box">
-                    <span class="stat-number">4.2M</span>
-                    <span class="stat-label">وظائف أمن سيبراني شاغرة عالمياً</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">$6T</span>
-                    <span class="stat-label">خسائر الجرائم السيبرانية سنوياً</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">43%</span>
-                    <span class="stat-label">من الهجمات تستهدف الشركات الصغيرة</span>
-                </div>
-                <div class="stat-box">
-                    <span class="stat-number">200</span>
-                    <span class="stat-label">يوم متوسط اكتشاف الاختراق</span>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="learning">
-            <h2>📚 مسارات تعلم الأمن السيبراني</h2>
-
-            <div class="learning-path">
-                <h4>🟢 المستوى المبتدئ (0-6 أشهر)</h4>
-                <ul>
-                    <li>أساسيات الشبكات (TCP/IP, OSI Model, DNS, DHCP)</li>
-                    <li>نظام التشغيل Linux (Command Line, File System, Permissions)</li>
-                    <li>البرمجة الأساسية (Python, Bash Scripting)</li>
-                    <li>مفاهيم الأمان الأساسية (CIA Triad, Authentication, Authorization)</li>
-                    <li>أدوات أساسية (Nmap, Wireshark, Metasploit)</li>
-                    <li>Virtual Machines و Lab Setup</li>
-                </ul>
-            </div>
-
-            <div class="learning-path">
-                <h4>🟡 المستوى المتوسط (6-18 شهر)</h4>
-                <ul>
-                    <li>OWASP Top 10 وثغرات تطبيقات الويب</li>
-                    <li>اختبار اختراق تطبيقات الويب (SQL Injection, XSS, CSRF)</li>
-                    <li>أدوات متقدمة (Burp Suite, OWASP ZAP, Nikto)</li>
-                    <li>اختبار اختراق الشبكات (Network Scanning, Exploitation)</li>
-                    <li>Windows Security و Active Directory</li>
-                    <li>Cryptography والتشفير</li>
-                    <li>Social Engineering والهندسة الاجتماعية</li>
-                </ul>
-            </div>
-
-            <div class="learning-path">
-                <h4>🔴 المستوى المتقدم (18+ شهر)</h4>
-                <ul>
-                    <li>Red Team Operations وتقنيات التخفي</li>
-                    <li>Advanced Persistent Threats (APT)</li>
-                    <li>Evasion Techniques والتهرب من الأنظمة الأمنية</li>
-                    <li>Custom Exploit Development</li>
-                    <li>Mobile Security (Android/iOS)</li>
-                    <li>Cloud Security (AWS, Azure, GCP)</li>
-                    <li>Incident Response والاستجابة للحوادث</li>
-                    <li>Threat Intelligence وتحليل التهديدات</li>
-                </ul>
-            </div>
-
-            <h3>🏆 الشهادات المعترف بها عالمياً</h3>
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">🎯</span>
-                    <h3>CEH - Certified Ethical Hacker</h3>
-                    <p><strong>المستوى:</strong> مبتدئ إلى متوسط<br>
-                    <strong>التكلفة:</strong> $1,199<br>
-                    <strong>مدة الصلاحية:</strong> 3 سنوات<br>
-                    شهادة أساسية تغطي أساسيات الهاكينج الأخلاقي</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">💀</span>
-                    <h3>OSCP - Offensive Security Certified Professional</h3>
-                    <p><strong>المستوى:</strong> متوسط إلى متقدم<br>
-                    <strong>التكلفة:</strong> $1,499<br>
-                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
-                    الشهادة الأكثر احتراماً في مجال اختبار الاختراق</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🛡️</span>
-                    <h3>PNPT - Practical Network Penetration Tester</h3>
-                    <p><strong>المستوى:</strong> متوسط<br>
-                    <strong>التكلفة:</strong> $399<br>
-                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
-                    شهادة عملية تركز على اختبار اختراق الشبكات</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🔰</span>
-                    <h3>eJPT - eLearnSecurity Junior Penetration Tester</h3>
-                    <p><strong>المستوى:</strong> مبتدئ<br>
-                    <strong>التكلفة:</strong> $200<br>
-                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
-                    نقطة بداية ممتازة للمبتدئين</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🏅</span>
-                    <h3>CISSP - Certified Information Systems Security Professional</h3>
-                    <p><strong>المستوى:</strong> إداري/متقدم<br>
-                    <strong>التكلفة:</strong> $749<br>
-                    <strong>مدة الصلاحية:</strong> 3 سنوات<br>
-                    للمناصب الإدارية والاستشارية</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🔥</span>
-                    <h3>CRTO - Certified Red Team Operator</h3>
-                    <p><strong>المستوى:</strong> متقدم<br>
-                    <strong>التكلفة:</strong> $499<br>
-                    <strong>مدة الصلاحية:</strong> مدى الحياة<br>
-                    متخصصة في عمليات Red Team</p>
-                </div>
-            </div>
-
-            <h3>📖 مصادر التعلم الموصى بها</h3>
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>🌐 مواقع التعلم</h5>
-                    <p>TryHackMe, HackTheBox, VulnHub, OverTheWire, PentesterLab</p>
-                </div>
-                <div class="tool-item">
-                    <h5>📚 كتب مهمة</h5>
-                    <p>The Web Application Hacker's Handbook, Metasploit: The Penetration Tester's Guide</p>
-                </div>
-                <div class="tool-item">
-                    <h5>🎥 قنوات يوتيوب</h5>
-                    <p>IppSec, LiveOverflow, John Hammond, The Cyber Mentor</p>
-                </div>
-                <div class="tool-item">
-                    <h5>🏠 Home Labs</h5>
-                    <p>VirtualBox/VMware, Kali Linux, Metasploitable, DVWA</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="salaries">
-            <h2>💸 الرواتب وفرص العمل في الأمن السيبراني</h2>
-
-            <h3>💰 متوسط الرواتب حسب المنطقة (بالدولار الأمريكي سنوياً)</h3>
-            <table class="salary-table">
-                <thead>
-                    <tr>
-                        <th>المنصب</th>
-                        <th>الدول العربية</th>
-                        <th>أوروبا</th>
-                        <th>أمريكا الشمالية</th>
-                        <th>آسيا</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td>Junior Penetration Tester</td>
-                        <td>$15,000 - $30,000</td>
-                        <td>$40,000 - $60,000</td>
-                        <td>$65,000 - $85,000</td>
-                        <td>$20,000 - $40,000</td>
-                    </tr>
-                    <tr>
-                        <td>Senior Penetration Tester</td>
-                        <td>$30,000 - $60,000</td>
-                        <td>$70,000 - $100,000</td>
-                        <td>$100,000 - $140,000</td>
-                        <td>$40,000 - $80,000</td>
-                    </tr>
-                    <tr>
-                        <td>Red Team Specialist</td>
-                        <td>$40,000 - $80,000</td>
-                        <td>$80,000 - $120,000</td>
-                        <td>$120,000 - $180,000</td>
-                        <td>$50,000 - $100,000</td>
-                    </tr>
-                    <tr>
-                        <td>Security Consultant</td>
-                        <td>$35,000 - $70,000</td>
-                        <td>$75,000 - $110,000</td>
-                        <td>$110,000 - $160,000</td>
-                        <td>$45,000 - $90,000</td>
-                    </tr>
-                    <tr>
-                        <td>CISO</td>
-                        <td>$80,000 - $150,000</td>
-                        <td>$150,000 - $250,000</td>
-                        <td>$250,000 - $400,000</td>
-                        <td>$100,000 - $200,000</td>
-                    </tr>
-                </tbody>
-            </table>
-
-            <h3>🎯 مقارنة أنواع العمل</h3>
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">🏢</span>
-                    <h3>العمل الوظيفي</h3>
-                    <p><strong>المزايا:</strong> راتب ثابت، تأمين صحي، إجازات مدفوعة<br>
-                    <strong>العيوب:</strong> مرونة أقل، نمو محدود<br>
-                    <strong>متوسط الراتب:</strong> $60,000 - $150,000</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">💼</span>
-                    <h3>العمل الحر (Freelance)</h3>
-                    <p><strong>المزايا:</strong> مرونة عالية، إمكانية دخل أعلى<br>
-                    <strong>العيوب:</strong> عدم استقرار، لا توجد مزايا<br>
-                    <strong>متوسط الأجر:</strong> $100 - $500 في الساعة</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🐛</span>
-                    <h3>Bug Bounty</h3>
-                    <p><strong>المزايا:</strong> دخل غير محدود، تعلم مستمر<br>
-                    <strong>العيوب:</strong> دخل غير مضمون، منافسة شديدة<br>
-                    <strong>متوسط المكافآت:</strong> $100 - $50,000+ لكل ثغرة</p>
-                </div>
-            </div>
-
-            <h3>📈 المسار الوظيفي</h3>
-            <div class="learning-path">
-                <h4>🎯 من المبتدئ إلى الخبير</h4>
-                <ul>
-                    <li><strong>Junior Security Analyst (0-2 سنة):</strong> $40,000 - $60,000</li>
-                    <li><strong>Security Analyst (2-4 سنوات):</strong> $60,000 - $80,000</li>
-                    <li><strong>Senior Security Analyst (4-7 سنوات):</strong> $80,000 - $110,000</li>
-                    <li><strong>Security Architect (7-10 سنوات):</strong> $110,000 - $150,000</li>
-                    <li><strong>Security Manager (8-12 سنة):</strong> $120,000 - $180,000</li>
-                    <li><strong>CISO (10+ سنوات):</strong> $180,000 - $400,000+</li>
-                </ul>
-            </div>
-        </section>
-
-        <section class="section" id="hackers">
-            <h2>🧠 أشهر الهاكرز والشخصيات المؤثرة</h2>
-
-            <h3>🎩 الهاكرز الأخلاقيين المشهورين</h3>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">👨‍💼</div>
-                <div class="hacker-info">
-                    <h4>Kevin Mitnick (1963-2023) - "The World's Most Famous Hacker"</h4>
-                    <p>أشهر هاكر في التاريخ، قضى 5 سنوات في السجن بتهمة اختراق أنظمة الحاسوب. بعد إطلاق سراحه أصبح خبير أمن سيبراني ومؤلف كتب مشهورة مثل "The Art of Deception". أسس شركة Mitnick Security Consulting وأصبح من أهم المتحدثين في مجال الأمن السيبراني.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🛡️</div>
-                <div class="hacker-info">
-                    <h4>Marcus Hutchins - "MalwareTech"</h4>
-                    <p>الهاكر البريطاني الذي أوقف انتشار فيروس WannaCry عام 2017 عن طريق اكتشاف "kill switch" في الكود. كان عمره 23 سنة فقط عندما أنقذ العالم من واحدة من أكبر الهجمات السيبرانية في التاريخ. يعمل الآن كباحث أمن سيبراني.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🔍</div>
-                <div class="hacker-info">
-                    <h4>Tsutomu Shimomura</h4>
-                    <p>خبير الأمن السيبراني الياباني-الأمريكي الذي ساعد في القبض على Kevin Mitnick. متخصص في أمان الشبكات والطب الشرعي الرقمي. قصته مع Mitnick تم تحويلها إلى فيلم "Takedown".</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🎯</div>
-                <div class="hacker-info">
-                    <h4>Charlie Miller</h4>
-                    <p>أول شخص يخترق iPhone وأول من اخترق MacBook Air. فاز بمسابقة Pwn2Own عدة مرات. يعمل حالياً في مجال أمان السيارات الذكية وقد اكتشف ثغرات خطيرة في سيارات Jeep Cherokee.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🌟</div>
-                <div class="hacker-info">
-                    <h4>Katie Moussouris</h4>
-                    <p>رائدة في مجال Bug Bounty Programs، عملت في Microsoft وأسست أول برنامج bug bounty في الشركة. أسست شركة Luta Security وتعتبر من أهم الشخصيات في مجال الأمن السيبراني.</p>
-                </div>
-            </div>
-
-            <h3>🎭 مجموعات الهاكتفست المشهورة</h3>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🎭</div>
-                <div class="hacker-info">
-                    <h4>Anonymous - "We Are Legion"</h4>
-                    <p>مجموعة هاكتفست لامركزية تأسست عام 2003. مشهورة بهجماتها على الحكومات والشركات الكبرى. استهدفت الكنيسة العلمية، PayPal، وحكومات عدة دول. شعارها قناع Guy Fawkes.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🐜</div>
-                <div class="hacker-info">
-                    <h4>LulzSec - "Laughing at your security since 2011"</h4>
-                    <p>مجموعة انشقت عن Anonymous، نشطت لمدة 50 يوم فقط في 2011 لكنها نفذت هجمات مدوية على Sony، PBS، CIA، وFBI. تم القبض على معظم أعضائها.</p>
-                </div>
-            </div>
-
-            <div class="hacker-profile">
-                <div class="hacker-avatar">🐻</div>
-                <div class="hacker-info">
-                    <h4>APT Groups (Advanced Persistent Threats)</h4>
-                    <p>مجموعات هاكرز مدعومة من دول مثل APT1 (الصين)، Lazarus Group (كوريا الشمالية)، Fancy Bear (روسيا). تنفذ هجمات معقدة ومستمرة لسرقة أسرار الدول والشركات.</p>
-                </div>
-            </div>
-
-            <h3>🏆 تأثيرهم على مجال الأمن السيبراني</h3>
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">📚</span>
-                    <h3>التعليم والتوعية</h3>
-                    <p>كتب مثل "The Art of Deception" و "Ghost in the Wires" علمت الملايين عن الأمن السيبراني والهندسة الاجتماعية.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🛡️</span>
-                    <h3>تطوير الدفاعات</h3>
-                    <p>هجماتهم كشفت نقاط ضعف مهمة، مما أدى لتطوير أنظمة حماية أقوى وممارسات أمنية أفضل.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">⚖️</span>
-                    <h3>القوانين والتشريعات</h3>
-                    <p>أدت أنشطتهم لسن قوانين جديدة مثل Computer Fraud and Abuse Act وتطوير قوانين الجرائم السيبرانية.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">💼</span>
-                    <h3>صناعة الأمن السيبراني</h3>
-                    <p>ساهموا في نمو صناعة الأمن السيبراني التي تقدر بمئات المليارات من الدولارات سنوياً.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="tools">
-            <h2>🧰 أدوات لا غنى عنها للهاكرز</h2>
-
-            <h3>🔍 أدوات الاستطلاع والتجسس</h3>
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>Nmap - Network Mapper</h5>
-                    <p>أداة مسح الشبكات الأشهر في العالم. تكتشف الأجهزة المتصلة، المنافذ المفتوحة، وأنظمة التشغيل.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Masscan</h5>
-                    <p>أسرع أداة مسح منافذ في العالم، قادرة على مسح الإنترنت كاملاً في 6 دقائق.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Shodan</h5>
-                    <p>"محرك البحث للأجهزة المتصلة بالإنترنت" - يكشف الكاميرات، الراوترات، والأجهزة الذكية.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>theHarvester</h5>
-                    <p>جمع معلومات من محركات البحث، LinkedIn، والمصادر المفتوحة (OSINT).</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Maltego</h5>
-                    <p>أداة تحليل الروابط والعلاقات، ممتازة للتحقيقات والاستخبارات مفتوحة المصدر.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Recon-ng</h5>
-                    <p>إطار عمل شامل لجمع المعلومات مع وحدات متعددة للاستطلاع.</p>
-                </div>
-            </div>
-
-            <h3>⚔️ أدوات الاستغلال (Exploitation)</h3>
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>Metasploit Framework</h5>
-                    <p>أشهر أداة استغلال في العالم، تحتوي على آلاف الـ exploits والـ payloads.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Burp Suite</h5>
-                    <p>الأداة الأساسية لاختبار أمان تطبيقات الويب، تشمل proxy، scanner، وintruder.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>SQLmap</h5>
-                    <p>أداة آلية لاكتشاف واستغلال ثغرات SQL Injection في قواعد البيانات.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Cobalt Strike</h5>
-                    <p>أداة Red Team متقدمة للمحاكاة الهجومية وإدارة العمليات طويلة المدى.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Empire/PowerShell Empire</h5>
-                    <p>إطار عمل post-exploitation يستخدم PowerShell و Python للتحكم في الأنظمة.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>BeEF - Browser Exploitation Framework</h5>
-                    <p>استغلال متصفحات الويب والتحكم بها عن بُعد.</p>
-                </div>
-            </div>
-
-            <h3>🕵️ أدوات ما بعد الاختراق</h3>
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>Mimikatz</h5>
-                    <p>استخراج كلمات المرور من ذاكرة Windows، تعتبر من أخطر الأدوات.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>BloodHound</h5>
-                    <p>تحليل وتصور Active Directory لإيجاد مسارات التصعيد والهجوم.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>PowerView</h5>
-                    <p>استطلاع Active Directory باستخدام PowerShell.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>LinEnum / LinPEAS</h5>
-                    <p>أدوات تصعيد الصلاحيات في أنظمة Linux.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>WinPEAS</h5>
-                    <p>تصعيد الصلاحيات في أنظمة Windows.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Impacket</h5>
-                    <p>مجموعة أدوات Python للتعامل مع بروتوكولات الشبكة.</p>
-                </div>
-            </div>
-
-            <h3>📡 أدوات إدارة الاتصال (C2 - Command & Control)</h3>
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>Cobalt Strike</h5>
-                    <p>الأداة الأكثر شهرة في عمليات Red Team، توفر C2 متقدم وتقنيات تخفي.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Sliver</h5>
-                    <p>إطار عمل C2 مفتوح المصدر، بديل مجاني لـ Cobalt Strike.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Empire</h5>
-                    <p>C2 framework يستخدم PowerShell و Python.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Covenant</h5>
-                    <p>إطار عمل C2 يستخدم .NET، مناسب لبيئات Windows.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Mythic</h5>
-                    <p>منصة C2 حديثة مع واجهة ويب متقدمة.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>PoshC2</h5>
-                    <p>إطار عمل C2 يستخدم PowerShell مع تقنيات تخفي متقدمة.</p>
-                </div>
-            </div>
-
-            <div class="code-snippet">
-                <strong>مثال على استخدام Nmap:</strong><br>
-                # مسح أساسي للشبكة<br>
-                nmap -sn 192.168.1.0/24<br><br>
-                # مسح المنافذ مع كشف نظام التشغيل<br>
-                nmap -sS -O -sV target.com<br><br>
-                # مسح شامل مع السكريبتات<br>
-                nmap -sC -sV -A target.com
-            </div>
-        </section>
-
-        <section class="section" id="redteam">
-            <h2>🕵️‍♂️ ممارسات Red Team المتقدمة</h2>
-
-            <h3>🎯 تقنيات المحاكاة المتقدمة</h3>
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">🎭</span>
-                    <h3>Living off the Land</h3>
-                    <p>استخدام الأدوات الموجودة في النظام (مثل PowerShell، WMI، PsExec) بدلاً من رفع أدوات خارجية لتجنب الكشف.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">👻</span>
-                    <h3>Fileless Attacks</h3>
-                    <p>هجمات لا تترك ملفات على القرص الصلب، تعمل في الذاكرة فقط مما يجعل كشفها صعب جداً.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🔄</span>
-                    <h3>Lateral Movement</h3>
-                    <p>الانتقال من جهاز لآخر داخل الشبكة باستخدام تقنيات مثل Pass-the-Hash، Golden Ticket، وSilver Ticket.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">⏰</span>
-                    <h3>Persistence Techniques</h3>
-                    <p>ضمان البقاء في النظام حتى بعد إعادة التشغيل باستخدام Registry، Scheduled Tasks، وServices.</p>
-                </div>
-            </div>
-
-            <h3>🧠 الهندسة الاجتماعية</h3>
-            <div class="learning-path">
-                <h4>📞 تقنيات الهندسة الاجتماعية</h4>
-                <ul>
-                    <li><strong>Phishing:</strong> إرسال رسائل مزيفة لسرقة بيانات الاعتماد</li>
-                    <li><strong>Spear Phishing:</strong> هجمات موجهة لأشخاص محددين</li>
-                    <li><strong>Vishing:</strong> الهندسة الاجتماعية عبر الهاتف</li>
-                    <li><strong>Smishing:</strong> الهندسة الاجتماعية عبر الرسائل النصية</li>
-                    <li><strong>Pretexting:</strong> خلق سيناريو مزيف لكسب الثقة</li>
-                    <li><strong>Baiting:</strong> ترك أجهزة USB مصابة في أماكن عامة</li>
-                </ul>
-            </div>
-
-            <h3>🏢 اختراق الأنظمة الفيزيائية</h3>
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>Lock Picking</h5>
-                    <p>فتح الأقفال الميكانيكية باستخدام أدوات خاصة.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>RFID Cloning</h5>
-                    <p>نسخ بطاقات الدخول الإلكترونية.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Badge Cloning</h5>
-                    <p>تقليد بطاقات الهوية للدخول للمباني.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Tailgating</h5>
-                    <p>الدخول خلف شخص مخول دون إذن.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>Dumpster Diving</h5>
-                    <p>البحث في القمامة عن معلومات حساسة.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>USB Drops</h5>
-                    <p>ترك أجهزة USB مصابة في مواقف السيارات أو المكاتب.</p>
-                </div>
-            </div>
-        </section>
-
-        <section class="section" id="tips">
-            <h2>💡 نصائح مهمة للمبتدئين</h2>
-
-            <div class="warning-box">
-                <h3>⚠️ تحذير قانوني مهم</h3>
-                <p>جميع المعلومات في هذا الموقع لأغراض تعليمية فقط. لا تستخدم هذه المعلومات في أي نشاط غير قانوني. اختبر فقط على أنظمتك الخاصة أو بإذن صريح من المالك.</p>
-            </div>
-
-            <h3>⚖️ الحدود القانونية</h3>
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">✅</span>
-                    <h3>ما هو قانوني</h3>
-                    <p>• اختبار أنظمتك الخاصة<br>
-                    • المشاركة في CTF competitions<br>
-                    • استخدام Labs مثل TryHackMe<br>
-                    • Bug Bounty Programs المعتمدة<br>
-                    • التعلم النظري والأكاديمي</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">❌</span>
-                    <h3>ما هو غير قانوني</h3>
-                    <p>• اختراق أنظمة بدون إذن<br>
-                    • سرقة البيانات الشخصية<br>
-                    • إلحاق الضرر بالأنظمة<br>
-                    • الابتزاز والتهديد<br>
-                    • بيع الأدوات الضارة</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">⚠️</span>
-                    <h3>المنطقة الرمادية</h3>
-                    <p>• اختبار مواقع بدون إذن صريح<br>
-                    • مشاركة الثغرات علناً<br>
-                    • استخدام أدوات الهاكينج<br>
-                    • الوصول لبيانات غير مخصصة لك</p>
-                </div>
-            </div>
-
-            <h3>🏠 بناء بيئة تجريبية آمنة (Home Lab)</h3>
-            <div class="learning-path">
-                <h4>🖥️ متطلبات الأجهزة</h4>
-                <ul>
-                    <li><strong>الحد الأدنى:</strong> 8GB RAM، معالج رباعي النواة، 500GB تخزين</li>
-                    <li><strong>الموصى به:</strong> 16GB+ RAM، معالج 8 أنوية، 1TB+ SSD</li>
-                    <li><strong>للمحترفين:</strong> 32GB+ RAM، خادم مخصص، شبكة منفصلة</li>
-                </ul>
-            </div>
-
-            <div class="tools-grid">
-                <div class="tool-item">
-                    <h5>🐧 Kali Linux</h5>
-                    <p>نظام التشغيل الأساسي للهاكرز الأخلاقيين، يحتوي على مئات الأدوات.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>📦 VirtualBox/VMware</h5>
-                    <p>لتشغيل أنظمة تشغيل متعددة على جهاز واحد.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>🎯 Metasploitable</h5>
-                    <p>نظام Linux مليء بالثغرات للتدريب.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>🌐 DVWA</h5>
-                    <p>تطبيق ويب مليء بالثغرات للتدريب.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>🏢 VulnHub VMs</h5>
-                    <p>مجموعة كبيرة من الأنظمة الضعيفة للتدريب.</p>
-                </div>
-                <div class="tool-item">
-                    <h5>☁️ Cloud Labs</h5>
-                    <p>استخدام AWS، Azure، أو GCP لبناء labs في السحابة.</p>
-                </div>
-            </div>
-
-            <h3>🚨 التحذير من النصابين</h3>
-            <div class="warning-box">
-                <h3>🛑 علامات الكورسات والمدربين المزيفين</h3>
-                <p>• وعود بـ "تعلم الهاكينج في 7 أيام"<br>
-                • ادعاء تعليم "الهاكينج الأسود"<br>
-                • طلب مبالغ كبيرة مقدماً<br>
-                • عدم وجود مراجعات حقيقية<br>
-                • الوعد بوظائف مضمونة<br>
-                • تعليم أنشطة غير قانونية</p>
-            </div>
-
-            <h3>📋 نصائح عملية للمبتدئين</h3>
-            <div class="cards-grid">
-                <div class="card">
-                    <span class="card-icon">📚</span>
-                    <h3>ابدأ بالأساسيات</h3>
-                    <p>لا تقفز للأدوات المتقدمة. تعلم الشبكات، Linux، والبرمجة أولاً. الأساسيات القوية تجعل التعلم المتقدم أسهل.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🎯</span>
-                    <h3>التطبيق العملي</h3>
-                    <p>لا تكتفي بالقراءة. جرب كل شيء في بيئة آمنة. اشترك في TryHackMe أو HackTheBox وحل التحديات.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">👥</span>
-                    <h3>انضم للمجتمع</h3>
-                    <p>تفاعل مع مجتمعات الأمن السيبراني على Discord، Reddit، وTwitter. تعلم من خبرات الآخرين.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">📝</span>
-                    <h3>وثق رحلتك</h3>
-                    <p>اكتب عن ما تتعلمه في مدونة أو LinkedIn. هذا يساعدك على التذكر ويبني سمعتك المهنية.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">🔄</span>
-                    <h3>التعلم المستمر</h3>
-                    <p>مجال الأمن السيبراني يتطور بسرعة. اقرأ الأخبار الأمنية يومياً وتابع الباحثين المشهورين.</p>
-                </div>
-
-                <div class="card">
-                    <span class="card-icon">⚖️</span>
-                    <h3>الأخلاق أولاً</h3>
-                    <p>استخدم مهاراتك لحماية الناس، ليس لإيذائهم. الهاكر الأخلاقي محترم ومطلوب في السوق.</p>
-                </div>
-            </div>
-
-            <div class="code-snippet">
-                <strong>خطة تعلم 30 يوم للمبتدئين:</strong><br>
-                الأسبوع 1: أساسيات الشبكات + Linux basics<br>
-                الأسبوع 2: Python programming + Bash scripting<br>
-                الأسبوع 3: Nmap + Wireshark + أساسيات الثغرات<br>
-                الأسبوع 4: TryHackMe rooms + أول CTF<br><br>
-                <strong>الهدف:</strong> فهم الأساسيات وحل 10 تحديات على الأقل
-            </div>
-        </section>
-
-        <div class="warning-box">
-            <h3>📜 إخلاء مسؤولية</h3>
-            <p>هذا المحتوى مخصص للأغراض التعليمية والبحثية فقط. نحن لا نتحمل أي مسؤولية عن سوء استخدام هذه المعلومات. يجب على المستخدمين الالتزام بالقوانين المحلية والدولية والحصول على إذن صريح قبل اختبار أي نظام لا يملكونه.</p>
-        </div>
-    </main>
-
-    <footer>
-        <p>&copy; 2024 RedGate Academy. جميع الحقوق محفوظة. | تم إنشاؤه لأغراض تعليمية فقط</p>
-        <p>🔴 تذكر: الهاكينج الأخلاقي يحمي، الهاكينج الضار يدمر. اختر الطريق الصحيح.</p>
-    </footer>
-
-    <script>
-        // تأثير التمرير السلس
-        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-            anchor.addEventListener('click', function (e) {
-                e.preventDefault();
-                const target = document.querySelector(this.getAttribute('href'));
-                if (target) {
-                    target.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                }
-            });
-        });
-
-        // تأثير الظهور عند التمرير
-        const observerOptions = {
-            threshold: 0.1,
-            rootMargin: '0px 0px -50px 0px'
-        };
-
-        const observer = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.style.opacity = '1';
-                    entry.target.style.transform = 'translateY(0)';
-                }
-            });
-        }, observerOptions);
-
-        // تطبيق التأثير على جميع الكروت والأقسام
-        document.querySelectorAll('.card, .section, .hacker-profile').forEach(el => {
-            el.style.opacity = '0';
-            el.style.transform = 'translateY(30px)';
-            el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-            observer.observe(el);
-        });
-
-        // تأثير الكتابة للعناوين
-        function typeWriter(element, text, speed = 100) {
-            let i = 0;
-            element.innerHTML = '';
-            function type() {
-                if (i < text.length) {
-                    element.innerHTML += text.charAt(i);
-                    i++;
-                    setTimeout(type, speed);
-                }
-            }
-            type();
+      `;
+      document.body.appendChild(instagramModal);
+      instagramModal.addEventListener('click', function(event) {
+        if (event.target === instagramModal) {
+          instagramModal.remove();
         }
+      });
+    });
 
-        // تطبيق تأثير الكتابة على العنوان الرئيسي
-        window.addEventListener('load', () => {
-            const heroTitle = document.querySelector('.hero h1');
-            const originalText = heroTitle.textContent;
-            typeWriter(heroTitle, originalText, 150);
+    document.getElementById('whatsappShareBtn').addEventListener('click', function(e) {
+      e.preventDefault();
+      const url = `https://wa.me/?text=${encodeURIComponent(shareMessage)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+      markAsShared(this);
+    });
+
+    function markAsShared(btn) {
+      hasShared = true;
+      btn.classList.add('shared');
+      document.getElementById('shareStatus').textContent = '✅ شكراً للمشاركة! فرصتك تضاعفت! 🎉';
+      showToast('✅ شكراً للمشاركة! فرصتك زادت!');
+    }
+
+    // Continue Button
+    document.getElementById('continueButton').addEventListener('click', function() {
+      if (!selectedTier) return;
+      document.getElementById('difficultySection').style.display = 'none';
+      document.getElementById('wheelSection').style.display = 'flex';
+      const tierData = DIFFICULTY_TIERS[selectedTier];
+      document.getElementById('tierSelected').textContent = `🎯 اخترت المستوى: ${tierData.emoji} ${tierData.name}`;
+    });
+
+    // Spin Button
+    document.getElementById('spinButton').addEventListener('click', async function() {
+      if (hasSpun) return;
+      hasSpun = true;
+      this.disabled = true;
+      this.style.opacity = '0.6';
+      this.classList.remove('pulse-animation');
+
+      const result = generateDiscountByTier(selectedTier);
+      const discountCode = generateDiscountCode(result.discount);
+      const expiryInfo = calculateExpiryDate();
+
+      currentDiscount = result.discount;
+      currentDiscountCode = discountCode;
+      currentExpiryDate = expiryInfo.formatted;
+
+      const resultCoupon = document.getElementById('resultCoupon');
+      const coupons = ['🎁', '🎀', '🎊', '🎉', '🎈', '🏆', result.emoji];
+      
+      let couponIndex = 0;
+      const couponInterval = setInterval(() => {
+        resultCoupon.textContent = coupons[couponIndex % coupons.length];
+        couponIndex++;
+      }, 100);
+
+      setTimeout(() => {
+        const flashOverlay = document.getElementById('flashOverlay');
+        flashOverlay.classList.add('flash');
+        setTimeout(() => flashOverlay.classList.remove('flash'), 300);
+      }, 200);
+
+      setTimeout(() => {
+        clearInterval(couponInterval);
+        resultCoupon.classList.add('rolling');
+        resultCoupon.textContent = result.emoji;
+        document.getElementById('percentageValue').textContent = `${result.discount}%`;
+      }, 2800);
+
+      setTimeout(() => {
+        createConfetti();
+        if (navigator.vibrate) navigator.vibrate([200, 100, 200, 100, 400]);
+        
+        setTimeout(() => {
+          document.getElementById('winnerName').textContent = `${currentUserData.full_name}! 🎊`;
+          document.getElementById('winnerCoupon').textContent = result.emoji;
+          document.getElementById('discountResult').textContent = `${result.discount}%`;
+          document.getElementById('discountCode').textContent = discountCode;
+          startLiveCountdown(expiryInfo.timestamp);
+          document.getElementById('celebrationOverlay').classList.add('show');
+        }, 600);
+      }, 3500);
+    });
+
+    // Copy, WhatsApp, Print
+    document.getElementById('copyBtn').addEventListener('click', function() {
+      if (navigator.clipboard) {
+        navigator.clipboard.writeText(currentDiscountCode).then(() => {
+          showToast('✅ تم نسخ كود الخصم!');
         });
+      }
+    });
 
-        // إضافة تأثيرات تفاعلية للكروت
-        document.querySelectorAll('.card').forEach(card => {
-            card.addEventListener('mouseenter', function() {
-                this.style.transform = 'translateY(-15px) scale(1.03)';
-            });
-            
-            card.addEventListener('mouseleave', function() {
-                this.style.transform = 'translateY(-10px) scale(1.02)';
-            });
+    document.getElementById('whatsappBtn').addEventListener('click', function() {
+      const message = `🎉 مبروك يا ${currentUserData.title} ${currentUserData.full_name}!\n\n💎 فزت بخصم *${currentDiscount}%* من معمل الأهرام للتحاليل الطبية 🔬✨\n\n🎟️ كود الخصم الخاص بك:\n*${currentDiscountCode}*\n\n⏰ صالح حتى: ${currentExpiryDate}\n\n━━━━━━━━━━━━━━\n\n📍 العنوان:\n${LAB_ADDRESS}\n\n📞 للحجز والاستفسار:\n${LAB_PHONE_1}\n${LAB_PHONE_2}\n\n━━━━━━━━━━━━━━\n\n✅ احجز موعدك الآن واستفيد بخصمك الفوري!\n\n💙 #صحتكم_أمانة_في_أيدينا\n🔬 #معمل_الأهرام`;
+      const url = `https://wa.me/201289614364?text=${encodeURIComponent(message)}`;
+      window.open(url, '_blank', 'noopener,noreferrer');
+    });
+
+    document.getElementById('printBtn').addEventListener('click', function() {
+      showToast('🖨️ جاري التحضير للطباعة...');
+      setTimeout(() => window.print(), 500);
+    });
+
+    // Scroll Indicator
+    const scrollIndicator = document.getElementById('scrollIndicator');
+    if (scrollIndicator) {
+      const difficultySection = document.getElementById('difficultySection');
+      if (difficultySection) {
+        difficultySection.addEventListener('scroll', function() {
+          if (this.scrollTop > 100) {
+            scrollIndicator.style.display = 'none';
+          } else {
+            scrollIndicator.style.display = 'block';
+          }
         });
+      }
+    }
 
-        // تحديث شريط التقدم
-        function updateProgressBars() {
-            document.querySelectorAll('.progress').forEach(bar => {
-                const width = Math.random() * 100;
-                bar.style.width = width + '%';
-            });
-        }
+    // Initialize SDK
+    if (window.elementSdk) {
+      window.elementSdk.init({
+        defaultConfig,
+        onConfigChange,
+        mapToCapabilities: () => ({
+          recolorables: [],
+          borderables: [],
+          fontEditable: undefined,
+          fontSizeable: undefined
+        }),
+        mapToEditPanelValues: (config) => new Map([
+          ['lab_name', config.lab_name || defaultConfig.lab_name],
+          ['welcome_title', config.welcome_title || defaultConfig.welcome_title],
+          ['form_instructions', config.form_instructions || defaultConfig.form_instructions],
+          ['spin_button_text', config.spin_button_text || defaultConfig.spin_button_text],
+          ['congratulations_text', config.congratulations_text || defaultConfig.congratulations_text],
+          ['social_share_text', config.social_share_text || defaultConfig.social_share_text]
+        ])
+      });
+    }
 
-        // تحديث أشرطة التقدم كل 5 ثوان
-        setInterval(updateProgressBars, 5000);
-
-        // fact إضافة تأثير الجسيمات المتحركة
-        function createParticle() {
-            const particle = document.createElement('div');
-            particle.style.position = 'fixed';
-            particle.style.width = '4px';
-            particle.style.height = '4px';
-            particle.style.background = `rgba(${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 255}, 0.7)`;
-            particle.style.borderRadius = '50%';
-            particle.style.pointerEvents = 'none';
-            particle.style.zIndex = '1';
-            particle.style.left = Math.random() * window.innerWidth + 'px';
-            particle.style.top = window.innerHeight + 'px';
-            
-            document.body.appendChild(particle);
-            
-            const animation = particle.animate([
-                { transform: 'translateY(0px)', opacity: 1 },
-                { transform: `translateY(-${window.innerHeight + 100}px)`, opacity: 0 }
-            ], {
-                duration: Math.random() * 3000 + 2000,
-                easing: 'linear'
-            });
-            
-            animation.onfinish = () => particle.remove();
-        }
-
-        // إنشاء جسيمات كل ثانية
-        setInterval(createParticle, 1000);
-
-        // تأثير تتبع الماوس
-        document.addEventListener('mousemove', (e) => {
-            const trail = document.createElement('div');
-            trail.style.position = 'fixed';
-            trail.style.left = e.clientX - 5 + 'px';
-            trail.style.top = e.clientY - 5 + 'px';
-            trail.style.width = '10px';
-            trail.style.height = '10px';
-            trail.style.background = 'rgba(255, 0, 0, 0.5)';
-            trail.style.borderRadius = '50%';
-            trail.style.pointerEvents = 'none';
-            trail.style.zIndex = '999';
-            trail.style.animation = 'fadeOut 1s ease-out forwards';
-            
-            document.body.appendChild(trail);
-            
-            setTimeout(() => trail.remove(), 1000);
-        });
-
-        // إضافة CSS للرسوم المتحركة
-        const style = document.createElement('style');
-        style.textContent = `
-            @keyframes fadeOut {
-                to {
-                    opacity: 0;
-                    transform: scale(2);
-                }
-            }
-        `;
-        document.head.appendChild(style);
-    </script>
-<script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'97ba3929e43e2770',t:'MTc1NzI5MDIzMS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
+    updateUI(window.elementSdk?.config || defaultConfig);
+  </script>
+ <script>(function(){function c(){var b=a.contentDocument||a.contentWindow.document;if(b){var d=b.createElement('script');d.innerHTML="window.__CF$cv$params={r:'9c4aa5d9f2017951',t:'MTc2OTU0MjA1MS4wMDAwMDA='};var a=document.createElement('script');a.nonce='';a.src='/cdn-cgi/challenge-platform/scripts/jsd/main.js';document.getElementsByTagName('head')[0].appendChild(a);";b.getElementsByTagName('head')[0].appendChild(d)}}if(document.body){var a=document.createElement('iframe');a.height=1;a.width=1;a.style.position='absolute';a.style.top=0;a.style.left=0;a.style.border='none';a.style.visibility='hidden';document.body.appendChild(a);if('loading'!==document.readyState)c();else if(window.addEventListener)document.addEventListener('DOMContentLoaded',c);else{var e=document.onreadystatechange||function(){};document.onreadystatechange=function(b){e(b);'loading'!==document.readyState&&(document.onreadystatechange=e,c())}}}})();</script></body>
 </html>
